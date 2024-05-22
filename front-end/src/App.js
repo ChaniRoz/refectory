@@ -1,10 +1,8 @@
-import logo from './logo.svg';
-import './App.css';
-
+import ChatBtn from './components/chat/chatBtn'
 function App() {
   return (
     <>
-    <h1>hello</h1>
+    <ChatBtn/>
     </>
   );
 }
