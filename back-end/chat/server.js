@@ -31,17 +31,10 @@ io.on('connection', (socket) => {
 
     });
 
-    // אופציונלי: טיפול בהגדרת שם משתמש אם נחוץ
-    socket.on('setUsername', (username) => {
-        console.log(`User ${socket.id} set username to ${username}`);
-    });
 });
 const sendMessageToClient = (message) => {
     io.emit('message', message);
 };
-// setInterval(() => {
-//     sendMessageToClient('Hello from server!');
-//   }, 10000);
 
 server.listen(5000, () => {
     console.log('Server is running on port 5000');

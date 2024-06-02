@@ -44,7 +44,6 @@ exports.getPresentOrders = async (req, res) => {
   }
 };
 
-//for manager
 exports.getAllOrders = async (req, res) => {
   try {
     const orders = await order.find();
@@ -55,14 +54,13 @@ exports.getAllOrders = async (req, res) => {
   }
 };
 
-//how to do get for update?
 
 exports.updateOrder = async (req, res) => {
   const { orderId } = req.params;
   const { isChange, email } = req.body;
   try {
     const updatedUser = await order.findOneAndUpdate(
-      { orderId: orderId }, // עדכון לפי שדה userId
+      { orderId: orderId }, 
       { isChange, email },
       { new: true }
     );

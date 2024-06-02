@@ -2,7 +2,6 @@ const pay = require('../schema/paySchema');
 const {validate} = require('../validation/payValid');
 
 exports.addPayment =  (req, res) => {
-  //validation
   let validatePayment = validate(req.body);
   if (validatePayment.error) {
     return res.status(400).json({ message: 'valid' });

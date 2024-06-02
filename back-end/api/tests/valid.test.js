@@ -13,7 +13,6 @@ describe('Validation Tests', () => {
 
         const result = validate(userData);
         expect(result.error).not.toBeNull();
-        //expect(result.error.details[0].message).toContain('"email" is required');
     });
     test('User data without email should fail validation', () => {
         const userData = {
@@ -25,7 +24,6 @@ describe('Validation Tests', () => {
     
         const result = validate(userData);
         expect(result.error).not.toBeNull(); 
-        //expect(result.error.details[0].message).toContain('"email" is required');
     });
 
     test('User data with invalid phone number should fail validation', () => {
@@ -38,7 +36,6 @@ describe('Validation Tests', () => {
 
         const result = validate(userData);
         expect(result.error).not.toBeNull();
-        //expect(result.error.details[0].message).toContain('"phone" length must be at least 9 characters long');
     });
 
     test('User data with invalid password should fail validation', () => {
@@ -46,7 +43,7 @@ describe('Validation Tests', () => {
             phone: '123456789',
             userName: 'JohnDoe',
             email: 'johndoe@example.com',
-            password: 'aaaaaaaaaa' // Password is too short
+            password: 'aaaaaaaaaa'
         };
 
         const result = validate(userData);

@@ -7,11 +7,11 @@ const write = (data) => {
     })
 }
 
-// fs.readFile('./order.xlsx', 'utf8', (err, data) => {
-//     if (err) {
-//         console.error(err);
-//     }
-//     console.log(data)
-//     process.exit(1)
+fs.readFile('./order.xlsx', 'utf8', (err, data) => {
+    if (err) {
+        console.error(err);
+    }
+    console.log(data)
+    process.exit(1)
 
-// })
+})
