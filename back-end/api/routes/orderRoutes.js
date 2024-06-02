@@ -8,8 +8,8 @@ router.post('/',addOrder);
 router.delete('/:orderId', deleteOrder);
 router.put('/:orderId', updateOrder);
 router.get('/', getAllOrders);
-router.get('old/', getOldOrders);
-router.get('present/', getPresentOrders);
+router.get('/old', getOldOrders);
+router.get('/present', getPresentOrders);
 
 
 
