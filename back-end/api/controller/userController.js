@@ -1,9 +1,8 @@
 const user = require('../schema/userSchema');
 const {validate} = require('../validation/userValid');
-// const { validate } = require('../validation/userValid')
 
-// import  validate  from "../validation/userValid";
 exports.addUser = async (req, res) => {
+
   //validation
   let validateUser = validate(req.body);
   console.log(validateUser,"validateUser");

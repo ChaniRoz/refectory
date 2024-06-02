@@ -1,43 +1,48 @@
-const express = require('express');
+//chat
 const http = require('http');
 const { Server } = require('socket.io');
 
-const app = express();
+
 const server = http.createServer(app);
 const io = new Server(server, {
-  cors: {
-    origin: '*',
-    credentials: true,
-  },
+    cors: {
+        origin: '*',
+        credentials: true,
+    },
 });
 
-let users = [];
+
 
 io.on('connection', (socket) => {
-  console.log('A new user has connected', socket.id);
+    console.log('A new user has connected', socket.id);
+    sendMessageToClient('Hello from server! i sucess to connect');
 
-  socket.on('message', (message) => {
-    io.emit('message', message);
-  });
+    // טיפול בהודעות מלקוח לשרת
+    socket.on('message', (message) => {  
+        console.log(`Message from ${socket.id}: ${message}`);
 
-  socket.on('disconnect', () => {
-    console.log(socket.id, ' disconnected');
-    users = users.filter((user) => user.id !== socket.id);
-    console.log(users);
-    io.emit('userList', users.map((user) => user.username));
-  });
+        // שליחת תשובה חזרה ללקוח ששלח את ההודעה
+        socket.emit('message', `Server received: ${message}`);
+    });
 
-  socket.on('setUsername', (username) => {
-    const user = { id: socket.id, username };
-    users.push(user);
-    console.log("users");
-    console.log(users);
-    console.log(user);
+    socket.on('disconnect', () => {
+        console.log(`${socket.id} disconnected`);
+        sendMessageToClient('error i dont sucess to connect');
 
-    io.emit('userList', users.map((user) => user.username));
-  });
+    });
+
+    // אופציונלי: טיפול בהגדרת שם משתמש אם נחוץ
+    socket.on('setUsername', (username) => {
+        console.log(`User ${socket.id} set username to ${username}`);
+    });
 });
+const sendMessageToClient = (message) => {
+    io.emit('message', message);
+};
+// setInterval(() => {
+//     sendMessageToClient('Hello from server!');
+//   }, 10000);
 
 server.listen(5000, () => {
-  console.log('Server is running on port 5000');
+    console.log('Server is running on port 5000');
 });
