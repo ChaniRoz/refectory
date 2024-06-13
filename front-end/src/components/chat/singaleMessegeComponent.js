@@ -11,13 +11,13 @@ const SingaleMessageComponent = ({ message }) => {
     margin: 10,
     alignSelf: isMe ? 'flex-end' : 'flex-start',
     borderColor: borderColor,
-    border: `1px solid ${borderColor}`
+    border: `1px solid ${borderColor}`,
   };
 
   return (
     <div style={{ display: 'flex', justifyContent: justifyStyle }}>
       <Paper style={messageStyle}>
-        <Typography variant="body1">{message.text}</Typography>
+        <Typography variant="body1" >{message.text}</Typography>
         <Typography variant="caption">{message.author}</Typography>
         <Typography variant="caption">{message.timestamp}</Typography>
       </Paper>
