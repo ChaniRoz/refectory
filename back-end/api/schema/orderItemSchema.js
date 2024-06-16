@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const orderItemSchema=new mongoose.Schema({
     itemId:Number,
-    cnt:Number
+    amount:Number
 })
 
 module.exports=mongoose.model('orderItem',orderItemSchema)
