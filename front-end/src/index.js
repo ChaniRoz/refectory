@@ -3,11 +3,27 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { Provider } from 'react-redux'
+import { BrowserRouter } from 'react-router-dom';
+import eventSlice from './redux/eventSlice';
+import { configureStore } from '@reduxjs/toolkit';
+
+const store = configureStore({
+  reducer: {
+    eventSlice,
+  }
+})
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+const MyContext=React.createContext();
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+        <Provider store={store}>
+          <App />
+        </Provider>
+    </BrowserRouter>
   </React.StrictMode>
 );
 

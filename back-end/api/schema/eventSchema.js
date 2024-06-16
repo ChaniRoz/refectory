@@ -1,15 +1,16 @@
 const mongoose = require('mongoose')
-const { EventType } = require('../enum/eventType.enum')
-const { EventDesign } = require('../enum/eventDesign.enum')
+// const { EventType } = require('../enum/eventType')
+// const { EventDesign } = require('../enum/eventDesign')
 
+    console.log("----------------");
 
 const eventSchema = new mongoose.Schema({
     userName: String,
-    type: EventType,
+    // type: EventType,
     orderId: Number,
-    date: Date,
+    // date: Date,
     amount: Number,
-    design: EventDesign,
+    // design: EventDesign,
     PaymentId:Number
 })
 
