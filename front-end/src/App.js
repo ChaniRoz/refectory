@@ -1,27 +1,18 @@
-// import ChatBtn from './components/chat/chatBtn'
-// import Form from './components/form/form'
-import React
-, { useEffect } 
-from 'react';
-import { useDispatch } from 'react-redux';
-import { Add } from './redux/eventSlice';
+import ChatBtn from './components/chat/chatBtn'
+import PrimarySearchAppBar from './components/navBar/nav'
+import FormattedInputs from "./components/payment/card";
+
+
+
 function App() {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    // Dispatch createEvent action with demo parameter
-    dispatch(Add({ 
-      id: 1,
-      name: 'Demo Event',
-      date: '2022-01-01'
-    }));
-  }, [dispatch]);
-
   return (
-    <div>
-      <h1>Sample Component</h1>
-      {/* Add any UI display for testing purposes */}
-    </div>
+    <>
+    <>Hello</>
+    <ChatBtn/>
+    <PrimarySearchAppBar/>
+    {/* <FormattedInputs/> */}
+
+    </>
   );
 }
 

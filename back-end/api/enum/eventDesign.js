@@ -1,5 +1,5 @@
-// export const EventDesign= {
-//     Black : 1,
-//     Blue :2,
-//     Beige : 3
-// }
+export const EventDesign= {
+    Black : 1,
+    Blue :2,
+    Beige : 3
+}

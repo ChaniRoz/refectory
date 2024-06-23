@@ -23,6 +23,8 @@ export default function FormDialog() {
             <Button variant="outlined" onClick={handleClickOpen}>
                 sign in
             </Button>
+            <Button onClick={handleClose}>Cancel</Button>
+
             <Dialog
                 open={open}
                 onClose={handleClose}
