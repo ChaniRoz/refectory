@@ -5,9 +5,11 @@ exports.addUser = async (req, res) => {
 
   let validateUser = validate(req.body);
   console.log(validateUser,"validateUser");
+  
   if (validateUser.error) {
     return res.status(400).json({ message: 'valid' });
   }
   const request = await user.create(req.body);
+  console.log("request",request);
   res.json(request)
 }

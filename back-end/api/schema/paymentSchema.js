@@ -1,11 +1,11 @@
-const { string } = require('joi')
+// const { string } = require('joi')
 const mongoose = require('mongoose')
 
 const paymentSchema=new mongoose.Schema({
-    paymentId:Number,
-    cardNum:Number,
-    cardDate:Date,
-    validity:Number,
+    paymentId:String,
+    cardNum:String,
+    cardDate:String,
+    validity:String,
 })
 
 module.exports=mongoose.model('payment',paymentSchema)

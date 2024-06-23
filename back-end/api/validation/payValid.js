@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-let paySchema = Joi.object({
+let paymentSchema = Joi.object({
     paymentId:Joi.string(),
     numCard:Joi.string().min(16).max(16),
     dateCard:Joi.string(),
@@ -8,5 +8,5 @@ let paySchema = Joi.object({
 })
 
 exports.validate = (payData) => {
-    return paySchema.validate(payData);
+    return paymentSchema.validate(payData);
 }

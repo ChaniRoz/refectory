@@ -33,8 +33,8 @@ exports.getOldOrders = async (req, res) => {
 exports.getPresentOrders = async (req, res) => {
   const email = req.params.email;
   try {
-    const orders = await order.find({ email: email , isComplete:false})
-    if(!orders){
+    const orders = await order.find({ email: email, isComplete: false })
+    if (!orders) {
       console.error("not found present order!");
     }
     res.json(orders);
@@ -60,7 +60,7 @@ exports.updateOrder = async (req, res) => {
   const { isChange, email } = req.body;
   try {
     const updatedUser = await order.findOneAndUpdate(
-      { orderId: orderId }, 
+      { orderId: orderId },
       { isChange, email },
       { new: true }
     );
