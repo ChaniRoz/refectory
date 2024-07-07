@@ -110,7 +110,7 @@ export default function ChatBtn() {
             id="scroll-dialog-description"
             ref={descriptionElementRef}
             tabIndex={-1}
-            minWidth={300} h
+            width={300} h
           >
             <div>
               {messages.map((msg, index) => (
