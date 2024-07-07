@@ -1,6 +1,6 @@
 // import ChatBtn from './components/chat/chatBtn'
-import Form from './components/form/form';
-// import PrimarySearchAppBar from './components/navBar/nav'
+// import Form from './components/form/form';
+import PrimarySearchAppBar from './components/navBar/nav'
 // import FormattedInputs from "./components/payment/card";
 
 
@@ -8,10 +8,10 @@ import Form from './components/form/form';
 function App() {
   return (
     <>
-    {/* <ChatBtn/> */}
-    {/* <PrimarySearchAppBar/> */}
-    {/* <FormattedInputs/> */}
-<Form/>
+      {/* <ChatBtn/> */}
+      <PrimarySearchAppBar />
+      {/* <FormattedInputs/> */}
+      {/* <Form/> */}
     </>
   );
 }

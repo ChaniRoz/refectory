@@ -156,6 +156,8 @@ export default function PrimarySearchAppBar() {
         </IconButton>
         <p>Notifications</p>
       </MenuItem>
+
+      
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           size="large"

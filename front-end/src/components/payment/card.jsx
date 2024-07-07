@@ -87,7 +87,7 @@ export default function FormattedInputs() {
       <br />
       <br />
       <br></br>
-      <TextField
+      {/* <TextField
         label="הכנס תאריך כרטיס"
         value={values.numberformat}
         onChange={handleChange}
@@ -100,7 +100,7 @@ export default function FormattedInputs() {
         variant="standard"
       />
       <br />
-      <br />
+      <br /> */}
       <TextField
         label="הכנס מספר CVC"
         value={values.numberformat}
@@ -113,13 +113,13 @@ export default function FormattedInputs() {
         type='number'
         variant="standard"
       />
-      <TextField
+      {/* <TextField
         id="outlined-uncontrolled"
         label="Uncontrolled"
         defaultValue="foo"
         type='date'
 
-      />
+      /> */}
       <TextField
         label="Size"
         id="standard-size-normal"

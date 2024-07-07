@@ -3,6 +3,8 @@ import Button from '@mui/material/Button';
 import EventDetailsStage from './eventDetailsStage';
 import MenuDetailsStage from './menuDetailsStage';
 import Payment from './paymentStage';
+import FormattedInputs from "../payment/card";
+
 function Form() {
   const [stage, setStage] = useState(1);
 
@@ -13,6 +15,10 @@ function Form() {
   const handlePrevious = () => {
     setStage(stage - 1);
   };
+
+  const handleFinish = () => {
+
+  }
 
   return (
     <div>
@@ -38,7 +44,15 @@ function Form() {
       {stage === 3 && (
         <div>
           <h2>Payment</h2>
-          <Payment/>
+          <FormattedInputs />
+          <Button variant="contained" color="secondary" onClick={handlePrevious}>Previous</Button>
+          <Button variant="contained" color="primary" onClick={handleNext}>לסיום ואישור הזמנה</Button>
+
+        </div>
+      )}
+      {stage === 4 && (
+        <div>
+          <h2>הזמנתך בוצעה בהצלחה!</h2>
           <Button variant="contained" color="secondary" onClick={handlePrevious}>Previous</Button>
         </div>
       )}
