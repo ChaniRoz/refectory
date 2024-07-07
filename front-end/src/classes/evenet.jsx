@@ -1,5 +1,5 @@
-import { EventDesign } from "./enum/eventDesign.enum";
-import { EventType } from "./enum/eventType.enum";
+import { EventDesign } from "./enum/eventDesign";
+import { EventType } from "./enum/eventType";
 
 export default class Event {
     userName=String;

@@ -1,4 +1,4 @@
-import { EventType } from "./enum/eventType.enum";
+import { EventType } from "./enum/eventType";
 
 export default class Item {
    itemId=Number;
