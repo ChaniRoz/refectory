@@ -1,22 +1,5 @@
-require('dotenv').config();
-const express = require("express");
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const orderRoutes = require('./src/order/orderRoutes');
-const userRoute = require('./src/user/userRoute');
-const eventRoute = require('./src/event/eventRoutes');
-const paymentRoute = require('./src/payment/paymentRoute');
 
-const app = express()
-app.use(bodyParser.json());
-
-app.use('/order', orderRoutes)
-app.use('/user', userRoute)
-app.use('/payment', paymentRoute)
-app.use('/event', eventRoute)
-
-const PORT = process.env.PORT || 5000;
-
+//chat
 const http = require('http');
 const { Server } = require('socket.io');
 const path = require('path');
@@ -60,6 +43,6 @@ const sendMessageToClient = (message) => {
     io.emit('message', message);
 };
 
-mongoose.connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true }).then(
-    () => app.listen(PORT, () => console.log(`server runing on port ${PORT}`)))
-    .catch((error) => console.log(error.message));
+// server.listen(5000, () => {
+//     console.log('Server is running on port 5000');
+// });

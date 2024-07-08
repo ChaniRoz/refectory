@@ -1,4 +1,4 @@
-const payment = require('../schema/paymentSchema');
+const payment = require('./paymentSchema');
 const { validate } = require('../validation/payValid');
 
 exports.addPayment = async (req, res) => {
