@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router()
 
-const {addEvent}=require('../controller/eventController')
+const {addItem}=require('./itemController')
 
-router.post('/',addEvent);
+router.post('/',addItem);
 
 
 module.exports = router

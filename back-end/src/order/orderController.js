@@ -1,4 +1,4 @@
-const order = require('../schema/orderSchema');
+const order = require('./orderSchema');
 
 exports.addOrder = async (req, res) => {
   const request = await order.create(req.body);
@@ -59,17 +59,17 @@ exports.updateOrder = async (req, res) => {
   const { orderId } = req.params;
   const { isChange, email } = req.body;
   try {
-    const updatedUser = await order.findOneAndUpdate(
+    const updatedOrder = await order.findOneAndUpdate(
       { orderId: orderId },
       { isChange, email },
       { new: true }
     );
-    if (!updatedUser) {
-      return res.status(404).json({ message: 'User not found' });
+    if (!updatedOrder) {
+      return res.status(404).json({ message: 'Order not found' });
     }
-    res.json(updatedUser);
+    res.json(updatedOrder);
   } catch (error) {
-    console.error('Failed to update user:', error);
-    res.status(500).json({ message: 'Failed to update user' });
+    console.error('Failed to update order:', error);
+    res.status(500).json({ message: 'Failed to update order' });
   }
 };

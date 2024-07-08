@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
-const { EventType } = require('../enum/eventType')
-const { EventDesign } = require('../enum/eventDesign')
+const EventType = require('../enum/eventType')
+const EventDesign = require('../enum/eventDesign');
 
 const eventSchema = new mongoose.Schema({
     userName: String,
@@ -9,7 +9,7 @@ const eventSchema = new mongoose.Schema({
     date: Date,
     amount: Number,
     // design: EventDesign,
-    PaymentId:Number
+    PaymentId: Number
 })
 
 module.exports = mongoose.model('event', eventSchema)

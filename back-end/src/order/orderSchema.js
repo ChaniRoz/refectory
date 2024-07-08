@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const orderItem = require('./orderItemSchema')
+const orderItem = require('../orderItem/orderItemSchema')
 
 const orderSchema = new mongoose.Schema({
     orderId: Number,
