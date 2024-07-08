@@ -6,8 +6,10 @@ const orderRoutes = require('./src/order/orderRoutes');
 const userRoute = require('./src/user/userRoute');
 const eventRoute = require('./src/event/eventRoutes');
 const paymentRoute = require('./src/payment/paymentRoute');
+const cors=require('cors')
 
 const app = express()
+app.use(cors())
 app.use(bodyParser.json());
 
 app.use('/order', orderRoutes)
@@ -20,6 +22,7 @@ const PORT = process.env.PORT || 5000;
 const http = require('http');
 const { Server } = require('socket.io');
 const path = require('path');
+const { required } = require('joi');
 
 const server = http.createServer();
 const io = new Server(server, {
@@ -63,3 +66,4 @@ const sendMessageToClient = (message) => {
 mongoose.connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true }).then(
     () => app.listen(PORT, () => console.log(`server runing on port ${PORT}`)))
     .catch((error) => console.log(error.message));
+

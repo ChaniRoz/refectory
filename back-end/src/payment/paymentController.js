@@ -1,6 +1,5 @@
 const payment = require('./paymentSchema');
-const { validate } = require('../validation/payValid');
-
+const { validate } = require('./paymentValid');
 exports.addPayment = async (req, res) => {
 
   let validatePayment = validate(req.body);
