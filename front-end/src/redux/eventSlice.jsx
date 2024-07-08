@@ -8,7 +8,7 @@ import UsePost from './hooks/postHook';
 // const UsePost= require('./hooks/postHook')
 // const Event= require('../classes/event')
 
-const http = process.env.VITE_HTTP;
+const http = process.env.HTTP||3008;
 
 const eventSlice = createSlice({
     name: "event",

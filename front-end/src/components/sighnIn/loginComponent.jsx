@@ -6,15 +6,34 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { useDispatch } from 'react-redux';
+import { Add } from '../../redux/userSlice';
 
 export default function FormDialog() {
+    const dispatch = useDispatch();
+
     const [open, setOpen] = React.useState(false);
+    const [userName, setUserName] = React.useState('')
+    const [email, setEmail] = React.useState('')
+    const [phone, setPhone] = React.useState('')
+    const [password, setPassword] = React.useState('')
 
     const handleClickOpen = () => {
         setOpen(true);
     };
 
     const handleClose = () => {
+        setOpen(false);
+    };
+
+    const handleSaveClose = () => {
+        const user = {
+            userName,
+            email,
+            phone,
+            password
+        }
+        dispatch(Add(user))
         setOpen(false);
     };
 
@@ -55,6 +74,7 @@ export default function FormDialog() {
                         type="name"
                         fullWidth
                         variant="standard"
+                        onChange={(e) => setUserName(e.target.value)}
                     />
                 </DialogContent>
                 <DialogContent>
@@ -65,12 +85,13 @@ export default function FormDialog() {
                         autoFocus
                         required
                         margin="dense"
-                        id="name"
+                        id="email"
                         name="email"
                         label="Email Address"
                         type="email"
                         fullWidth
                         variant="standard"
+                        onChange={(e) => setEmail(e.target.value)}
                     />
                 </DialogContent>
                 <DialogContent>
@@ -81,12 +102,13 @@ export default function FormDialog() {
                         autoFocus
                         required
                         margin="dense"
-                        id="Phone"
+                        id="phone"
                         name="PhoneNumber"
                         label="Phone Number"
                         type="number"
                         fullWidth
                         variant="standard"
+                        onChange={(e) => setPhone(e.target.value)}
                     />
                 </DialogContent>
                 <DialogContent>
@@ -97,12 +119,13 @@ export default function FormDialog() {
                         autoFocus
                         required
                         margin="dense"
-                        id="Passward"
+                        id="passward"
                         name="Passward"
                         label="Passward"
                         type="Passward"
                         fullWidth
                         variant="standard"
+                        onChange={(e) => setPassword(e.target.value)}
                     />
                 </DialogContent>
                 <DialogContent>
@@ -124,7 +147,7 @@ export default function FormDialog() {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
-                    <Button type="submit">sumbit</Button>
+                    <Button onClick={handleSaveClose} type="submit">sumbit</Button>
                 </DialogActions>
             </Dialog>
         </React.Fragment>

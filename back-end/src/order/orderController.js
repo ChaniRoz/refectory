@@ -6,7 +6,8 @@ exports.addOrder = async (req, res) => {
 }
 
 exports.deleteOrder = async (req, res) => {
-  const orderId = req.params.orderId;
+  const { orderId } = req.params;
+  console.log({orderId});
   try {
     const deleteOrder = await order.findOneAndDelete({ orderId: orderId });
     if (!deleteOrder) {
