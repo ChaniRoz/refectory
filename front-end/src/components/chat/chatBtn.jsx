@@ -78,7 +78,7 @@ export default function ChatBtn() {
   const StyledFab = styled(Fab)({
     position: 'absolute',
     zIndex: 1,
-    top: 30,
+    bottom: -700,
     left: 30,
     margin: '0 auto',
   });
