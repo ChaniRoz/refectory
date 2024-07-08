@@ -6,30 +6,44 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { FormControl } from '@mui/material';
 
 export default function FormDialog() {
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
 
     const handleClose = () => {
         setOpen(false);
     };
 
-    const handleSaveClose = () => {
-        // save data
-        setOpen(false);
-    };
-
     return (
         <React.Fragment>
-             <Dialog
+            <Button variant="outlined" onClick={handleClickOpen}>
+                sign in
+            </Button>
+            <Button onClick={handleClose}>Cancel</Button>
+
+            <Dialog
                 open={open}
-            > 
-               <FormControl>
+                onClose={handleClose}
+                PaperProps={{
+                    component: 'form',
+                    onSubmit: (event) => {
+                        event.preventDefault();
+                        const formData = new FormData(event.currentTarget);
+                        const formJson = Object.fromEntries(formData.entries());
+                        const name = formJson.name;
+                        console.log(name);
+                        handleClose();
+                    },
+                }}
+            >
                 <DialogTitle>Sign in</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        Personal detiles
+                        enter your personal detiles
                     </DialogContentText>
                     <TextField
                         autoFocus
@@ -45,7 +59,7 @@ export default function FormDialog() {
                 </DialogContent>
                 <DialogContent>
                     <DialogContentText>
-                         Email Address
+                        enter your Email Address
                     </DialogContentText>
                     <TextField
                         autoFocus
@@ -61,7 +75,7 @@ export default function FormDialog() {
                 </DialogContent>
                 <DialogContent>
                     <DialogContentText>
-                         Phone Number
+                        enter your Phone Number
                     </DialogContentText>
                     <TextField
                         autoFocus
@@ -77,7 +91,7 @@ export default function FormDialog() {
                 </DialogContent>
                 <DialogContent>
                     <DialogContentText>
-                         Passward
+                        enter your Passward
                     </DialogContentText>
                     <TextField
                         autoFocus
@@ -93,7 +107,7 @@ export default function FormDialog() {
                 </DialogContent>
                 <DialogContent>
                     <DialogContentText>
-                        Confirm Password
+                        enter Confirm Password
                     </DialogContentText>
                     <TextField
                         autoFocus
@@ -110,10 +124,9 @@ export default function FormDialog() {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
-                    <Button type="submit" onClick={handleSaveClose}>sumbit</Button>
+                    <Button type="submit">sumbit</Button>
                 </DialogActions>
-                </FormControl>
             </Dialog>
-        </React.Fragment> 
+        </React.Fragment>
     );
 }
