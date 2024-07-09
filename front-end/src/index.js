@@ -8,11 +8,13 @@ import { BrowserRouter } from 'react-router-dom';
 import { configureStore } from '@reduxjs/toolkit';
 import userSlice from './redux/userSlice';
 import eventSlice from './redux/eventSlice';
+import itemSlice from './redux/itemSlice';
 
 const store = configureStore({
   reducer: {
     userSlice,
-    eventSlice
+    eventSlice,
+    itemSlice
   }
 })
 
