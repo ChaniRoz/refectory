@@ -12,15 +12,11 @@ import { Add } from '../../redux/userSlice';
 export default function FormDialog() {
     const dispatch = useDispatch();
 
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(true);
     const [userName, setUserName] = React.useState('')
     const [email, setEmail] = React.useState('')
     const [phone, setPhone] = React.useState('')
     const [password, setPassword] = React.useState('')
-
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
 
     const handleClose = () => {
         setOpen(false);
@@ -39,11 +35,6 @@ export default function FormDialog() {
 
     return (
         <React.Fragment>
-            <Button variant="outlined" onClick={handleClickOpen}>
-                sign in
-            </Button>
-            <Button onClick={handleClose}>Cancel</Button>
-
             <Dialog
                 open={open}
                 onClose={handleClose}
@@ -61,9 +52,7 @@ export default function FormDialog() {
             >
                 <DialogTitle>Sign in</DialogTitle>
                 <DialogContent>
-                    <DialogContentText>
-                        enter your personal detiles
-                    </DialogContentText>
+                    enter your personal detiles
                     <TextField
                         autoFocus
                         required
@@ -76,8 +65,6 @@ export default function FormDialog() {
                         variant="standard"
                         onChange={(e) => setUserName(e.target.value)}
                     />
-                </DialogContent>
-                <DialogContent>
                     <DialogContentText>
                         enter your Email Address
                     </DialogContentText>
@@ -93,8 +80,6 @@ export default function FormDialog() {
                         variant="standard"
                         onChange={(e) => setEmail(e.target.value)}
                     />
-                </DialogContent>
-                <DialogContent>
                     <DialogContentText>
                         enter your Phone Number
                     </DialogContentText>
@@ -110,8 +95,6 @@ export default function FormDialog() {
                         variant="standard"
                         onChange={(e) => setPhone(e.target.value)}
                     />
-                </DialogContent>
-                <DialogContent>
                     <DialogContentText>
                         enter your Passward
                     </DialogContentText>
@@ -127,8 +110,6 @@ export default function FormDialog() {
                         variant="standard"
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                </DialogContent>
-                <DialogContent>
                     <DialogContentText>
                         enter Confirm Password
                     </DialogContentText>
@@ -145,9 +126,10 @@ export default function FormDialog() {
                         autoComplete="current-password"
                     />
                 </DialogContent>
+
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleSaveClose} type="submit">sumbit</Button>
+                    <Button onClick={handleSaveClose} type="submit" autoFocus>sumbit</Button>
                 </DialogActions>
             </Dialog>
         </React.Fragment>
