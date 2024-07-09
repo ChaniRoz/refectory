@@ -8,8 +8,8 @@ function App() {
     <>
       {/* <ChatBtn/> */}
       <PrimarySearchAppBar />
-      {/* <Form /> */}
       <EventDetailsStage/>
+      {/* <FormattedInputs/> */}
     </>
   );
 }
