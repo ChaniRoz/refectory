@@ -8,7 +8,7 @@ import UsePost from './hooks/postHook';
 // const UsePost= require('./hooks/postHook')
 // const Event= require('../classes/event')
 
-const http = process.env.HTTP||3008;
+const http = ' http://localhost:3000' || process.env.API_URL;
 
 const eventSlice = createSlice({
     name: "event",
@@ -35,7 +35,7 @@ const eventSlice = createSlice({
     }
 });
 
-export const {Add } = eventSlice.actions;
+export const { Add } = eventSlice.actions;
 export const selectEvents = state => state.eventSlice.events;
 export default eventSlice.reducer;
 

@@ -1,6 +1,7 @@
 const event = require('./eventSchema');
 
 exports.addEvent = async (req, res) => {
+  console.log(req.body);
   const request = await event.create(req.body);
   res.json(request)
 }
@@ -31,11 +32,11 @@ exports.getAllEvents = async (req, res) => {
 
 exports.updateEvent = async (req, res) => {
   const { eventId } = req.params;
-  const { userName, date, amount, PaymentId, type, design } = req.body;
+  const { userName, date, diners, PaymentId, type, design ,houer} = req.body;
   try {
     const updatedEvent = await event.findOneAndUpdate(
       { eventId: eventId },
-      { userName, date, amount, PaymentId, type, design },
+      { userName, date, diners, PaymentId, type, design ,houer},
       { new: true }
     );
     if (!updatedEvent) {

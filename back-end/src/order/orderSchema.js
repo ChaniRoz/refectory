@@ -5,7 +5,7 @@ const orderSchema = new mongoose.Schema({
     orderId: Number,
     isComplete: Boolean,
     userId: Number,
-    // items :[orderItem]
+    items :[orderItem.schema]
 })
 
 module.exports = mongoose.model('order', orderSchema)

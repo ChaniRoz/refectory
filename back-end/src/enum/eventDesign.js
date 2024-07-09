@@ -1,7 +1,7 @@
-const EventDesign= {
-    Black : '1',
-    Blue :'2',
-    Beige : '3'
-};
+const EventDesign = [
+    'Black',
+    'Blue',
+    'Beige'
+];
 
 module.exports = EventDesign;
