@@ -3,7 +3,7 @@ const  EventType  = require('../enum/eventType')
 
 const itemSchema=new mongoose.Schema({
     itemId:Number,
-    type:EventType,
+    // type:EventType,
     name:String,
     price:Number,
 })

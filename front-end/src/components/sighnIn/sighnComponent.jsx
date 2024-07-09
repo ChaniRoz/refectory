@@ -17,51 +17,44 @@ import TextField from '@mui/material/TextField';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
+import { useDispatch } from 'react-redux';
+import { Get } from '../../redux/userSlice';
+import ChatBtn from '../chat/manager/chatManager';
 
 const emails = ['username@gmail.com', 'user02@gmail.com'];
 
-function SimpleDialog(props) {
+export default function SimpleDialog() {
+
+  const dispatch = useDispatch();
+
   const [open, setOpen] = React.useState(false);
+  const [email, setEmail] = React.useState('')
 
-  const handleClose = () => {
-    // onClose(setOpen);
+  const [pasward, setPasward] = React.useState('')
+
+  const handleSaveClose = () => {
+    const user = email;
+    const pass = pasward;
+    if (user == '6967460@gmail.com') {
+
+      console.log("you are manage$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+      handleDetailsManager()
+      // return 
+
+    }
+    // dispatch(Get(user))
+    setOpen(false);
   };
-  
+  const handleDetailsManager = () => {
+    console.log("herere");
+    ChatBtn();
 
-  // const handleListItemClick = (value) => {
-  //   onClose(value);
-  // };
+  }
 
   return (
-    <Dialog onClose={handleClose} open={setOpen}>
-      {/* <DialogTitle>Set backup account</DialogTitle> */}
-      {/* <List sx={{ pt: 0 }}> */}
-      {/* {emails.map((email) => (
-          <ListItem disableGutters key={email}>
-            <ListItemButton onClick={() => handleListItemClick(email)}>
-              <ListItemAvatar>
-                <Avatar sx={{ bgcolor: blue[100], color: blue[600] }}>
-                  <PersonIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary={email} />
-            </ListItemButton>
-          </ListItem>
-        ))} */}
-      {/* <ListItem disableGutters>
-          <ListItemButton
-            autoFocus
-            onClick={() => handleListItemClick('addAccount')}
-          >
-            <ListItemAvatar>
-              <Avatar>
-                <AddIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary="Add account" />
-          </ListItemButton>
-        </ListItem> */}
-      {/* </List> */}
+    <Dialog
+      open={setOpen}
+    >
       <DialogContent>
         <DialogContentText>enter your Email Address</DialogContentText>
         <TextField
@@ -74,9 +67,11 @@ function SimpleDialog(props) {
           type="email"
           fullWidth
           variant="outlined"
+          onChange={(e) => setEmail(e.target.value)}
+
         />
         <DialogContentText>enter your Password</DialogContentText>
-         <TextField
+        <TextField
           autoFocus
           required
           margin="dense"
@@ -86,47 +81,15 @@ function SimpleDialog(props) {
           type="password"
           fullWidth
           variant="outlined"
+          onChange={(e) => setPasward(e.target.value)}
+
         />
       </DialogContent>
-      
+
       <DialogActions>
-        {/* <Button onClick={handleClose}>Cancel</Button> */}
-        <Button type="submit">sumbit</Button>
+        <Button type="submit" onClick={handleSaveClose}>sumbit</Button>
       </DialogActions>
     </Dialog>
   );
 }
 
-SimpleDialog.propTypes = {
-//   onClose: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
-  selectedValue: PropTypes.string.isRequired,
-};
-
-export default function SimpleDialogDemo() {
-  const [open, setOpen] = React.useState(false);
-  const [selectedValue, setSelectedValue] = React.useState(emails[1]);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = (value) => {
-    setOpen(false);
-    setSelectedValue(value);
-  };
-
-  return (
-    <div>
-      <br />
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Open simple dialog
-      </Button>
-      <SimpleDialog
-        // selectedValue={selectedValue}
-        open={open}
-      // onClose={handleClose}
-      />
-    </div>
-  );
-}

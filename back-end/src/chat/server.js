@@ -22,11 +22,17 @@ io.on('connection', (socket) => {
     console.log('A new user has connected', socket.id);
     sendMessageToClient('Hello from server! i sucess to connect');
 
+    socket.on('create-room', (roomName) => {  
+        console.log(`A new chat room "${roomName}" is requested`);
+
+    });
+
     socket.on('message', (message) => {  
         console.log(`Message from ${socket.id}: ${message}`);
         socket.emit('message', 'שלום שלום');
 
     });
+
 
     socket.on('disconnect', () => {
         console.log(`${socket.id} disconnected`);

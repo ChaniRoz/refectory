@@ -15,13 +15,16 @@ import Fab from '@mui/material/Fab';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import io from 'socket.io-client';
-import SingaleMessageComponent from './singaleMessegeComponent';
+import SingaleMessageComponent from '../singaleMessegeComponent';
+// import { log } from 'console';
 
-
-const socket = io('http://localhost:5000');
 
 
 export default function ChatBtn() {
+
+  const socket = io('http://localhost:5000');
+
+
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState('paper');
   const [message, setMessage] = React.useState('');
@@ -40,20 +43,15 @@ export default function ChatBtn() {
     { text: 'Welcome', author: 'Me', timestamp: '10:10 AM' },
   ]);
 
-
   React.useEffect(() => {
-    const email = '6967460@gmail.com'
-    socket.emit(email, socket.id)
+    socket.on('message', (message) => {
+      setMessages((prevMessages) => [...prevMessages, { text: message, author: 'me', timestamp: new Date().toLocaleTimeString() }]);
 
+    });
 
-    // socket.on('message', (message) => {
-    //   setMessages((prevMessages) => [...prevMessages, { text: message, author: 'me', timestamp: new Date().toLocaleTimeString() }]);
-
-    // });
-
-    // return () => {
-    //   socket.off('message');
-    // };
+    return () => {
+      socket.off('message');
+    };
   }, []);
 
   const handleClickOpen = (scrollType) => () => {
@@ -80,7 +78,7 @@ export default function ChatBtn() {
       }
     }
   }, [open]);
-
+  
   const StyledFab = styled(Fab)({
     position: 'absolute',
     zIndex: 1,

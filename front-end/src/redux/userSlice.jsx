@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import UsePost from './hooks/postHook';
+import UseGet from "./hooks/getHook";
 
 const http =' http://localhost:3000'|| process.env.API_URL ;
 
@@ -7,13 +8,18 @@ const userSlice = createSlice({
     name: "user",
     initialState: {},
     reducers: {
-        // Get: (state) => {
-        //     const [get, data] = UseGet();
-        //     get(`${http}/user`);
-        //     state.Post = data;
-        // },
+        Get: (state ,actions) => {
+            console.log(actions.payload,"---------");
+            if(actions.payload.email==='6967460@gmail.com'){
+                console.log("---000999999999990000000---------");
+            }
+            const get = UseGet();
+            get(`${http}/user`, actions.payload);
+            console.log("finish");
+           
+        },
         Add: (state, actions) => {
-            console.log(actions.payload);
+            console.log(actions.payload,"?????????????");
             const Post = UsePost();
             Post(`${http}/user`, actions.payload)
         },
@@ -21,6 +27,8 @@ const userSlice = createSlice({
 });
 
 export const { Add } = userSlice.actions;
+export const { Get } = userSlice.actions;
+
 export const selectusers = state => state.userSlice.users;
 export default userSlice.reducer;
 

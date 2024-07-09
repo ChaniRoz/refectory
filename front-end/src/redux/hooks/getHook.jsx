@@ -1,20 +1,16 @@
-import * as React from 'react';
+
 import axios from 'axios';
 
 const UseGet = () => {
-
-    const [res, setRes] = React.useState()
-
-    const get = async (url) => {
+    const get = async (url , data) => {
         try {
-            const response = await axios.get(url)
-            setRes(response.data)
+            await axios.get(url , data)
         } catch (error) {
             console.error(error)
         }
     }
 
-    return [get, res]
+    return get;
 }
 
 export default UseGet

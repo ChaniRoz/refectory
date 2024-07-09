@@ -7,10 +7,12 @@ import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom';
 import { configureStore } from '@reduxjs/toolkit';
 import userSlice from './redux/userSlice';
+import itemSlice from './redux/itemSlice';
 
 const store = configureStore({
   reducer: {
     userSlice,
+    itemSlice
   }
 })
 
