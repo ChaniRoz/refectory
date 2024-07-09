@@ -6,10 +6,8 @@ import PrimarySearchAppBar from './components/navBar/nav'
 function App() {
   return (
     <>
-      {/* <ChatBtn/> */}
       <PrimarySearchAppBar />
       <EventDetailsStage/>
-      {/* <FormattedInputs/> */}
     </>
   );
 }
