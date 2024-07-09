@@ -6,7 +6,8 @@ const orderRoutes = require('./src/order/orderRoutes');
 const userRoute = require('./src/user/userRoute');
 const eventRoute = require('./src/event/eventRoutes');
 const paymentRoute = require('./src/payment/paymentRoute');
-const cors=require('cors')
+const itemRoute = require('./src/item/itemRoutes');
+const cors = require('cors')
 
 const app = express()
 app.use(cors())
@@ -16,6 +17,7 @@ app.use('/order', orderRoutes)
 app.use('/user', userRoute)
 app.use('/payment', paymentRoute)
 app.use('/event', eventRoute)
+app.use('/item', itemRoute)
 
 const PORT = process.env.PORT || 5000;
 
@@ -42,7 +44,7 @@ io.on('connection', (socket) => {
     console.log('A new user has connected', socket.id);
     sendMessageToClient('Hello from server! i sucess to connect');
 
-    socket.on('message', (message) => {  
+    socket.on('message', (message) => {
         console.log(`Message from ${socket.id}: ${message}`);
         socket.emit('message', 'שלום שלום');
 

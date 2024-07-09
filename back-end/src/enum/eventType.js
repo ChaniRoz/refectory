@@ -1,7 +1,7 @@
-const EventType= {
-    Fleshy : '1',
-    Milky :'2',
-    Pareve : '3'
-}
+const EventType= [
+    'Fleshy' ,
+    'Milky' ,
+    'Pareve' 
+]
 
 module.exports=EventType;

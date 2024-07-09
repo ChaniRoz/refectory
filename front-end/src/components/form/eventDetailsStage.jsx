@@ -6,13 +6,9 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import TextField from '@mui/material/TextField';
-
-
-// const [type, setType] = React.useState('fleshy')
-// const [number, setNumber] = React.useState('0')
-// const [date, setDate] = React.useState(Date.now())
-// const [time, setTime] = React.useState(Date.now())
-// const [design, setDesign] = React.useState('blue')
+import { Button } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { Add } from '../../redux/eventSlice';
 
 
 const BpIcon = styled('span')(({ theme }) => ({
@@ -70,17 +66,37 @@ function BpRadio(props) {
 }
 
 function EventDetailsStage() {
+  const [diners, setDiners] = React.useState(0);
+  const [date, setDate] = React.useState(0);
+  const [houer, setHouer] = React.useState('0');
+  const [design, setDesign] = React.useState('Black')
+  const [type, setType] = React.useState('Pareve')
+  const dispatch = useDispatch();
+
+  const handleSave = () => {
+    const event = {
+      diners,
+      date,
+      houer,
+      design,
+      type
+    }
+    console.log(event);
+    dispatch(Add(event)); 
+  };
+
   return (
     <FormControl>
       <FormLabel id="type">Event Type</FormLabel>
       <RadioGroup
-        defaultValue="fleshy"
+        defaultValue="Pareve"
         aria-labelledby="type"
         name="type-radios"
+        onChange={(e) => setType(e.target.value)}
       >
-        <FormControlLabel value="fleshy" control={<BpRadio />} label="Fleshy" />
-        <FormControlLabel value="milky" control={<BpRadio />} label="Milky" />
-        <FormControlLabel value="pareve" control={<BpRadio />} label="Pareve" />
+        <FormControlLabel value="Fleshy" control={<BpRadio />} label="Fleshy" />
+        <FormControlLabel value="Milky" control={<BpRadio />} label="Milky" />
+        <FormControlLabel value="Pareve" control={<BpRadio />} label="Pareve" />
       </RadioGroup>
       <TextField
         id="number"
@@ -90,6 +106,7 @@ function EventDetailsStage() {
           shrink: true,
         }}
         variant="standard"
+        onChange={(e) => setDiners(e.target.value)}
       />
       <TextField
         id="date"
@@ -99,6 +116,7 @@ function EventDetailsStage() {
           shrink: true,
         }}
         variant="standard"
+        onChange={(e) => setDate(e.target.value)}
       />
       <TextField
         id="houer"
@@ -108,17 +126,20 @@ function EventDetailsStage() {
           shrink: true,
         }}
         variant="standard"
+        onChange={(e) => setHouer(e.target.value)}
       />
       <FormLabel id="design">The design of the hall</FormLabel>
       <RadioGroup
-        defaultValue="blue"
+        defaultValue="Black"
         aria-labelledby="demo-customized-radios"
         name="design-radios"
+        onChange={(e) => setDesign(e.target.value)}
       >
-        <FormControlLabel value="black" control={<BpRadio />} label="Black" />
-        <FormControlLabel value="blue" control={<BpRadio />} label="Blue" />
-        <FormControlLabel value="beige" control={<BpRadio />} label="Beige" />
+        <FormControlLabel value="Black" control={<BpRadio />} label="Black" />
+        <FormControlLabel value="Blue" control={<BpRadio />} label="Blue" />
+        <FormControlLabel value="Beige" control={<BpRadio />} label="Beige" />
       </RadioGroup>
+      <Button onClick={handleSave} type="submit">הבא</Button>
     </FormControl>
 
   );
