@@ -39,13 +39,25 @@ exports.getItemById = async (req, res) => {
   const { itemId } = req.params.itemId;
 
   try {
-    const item = await item.findOne({ itemId });
-    if (!item) {
+    const Item = await item.findOne({ itemId });
+    if (!Item) {
       return res.status(404).json({ message: 'item not found' });
     }
-    res.json(item);
+    res.json(Item);
   } catch (error) {
     console.error('Failed to get item:', error);
     res.status(500).json({ message: 'Failed to get item' });
+  }
+};
+exports.getItemsByTypeAndEvent = async (req, res) => {
+  const { eventType,itemType } = req.params;  
+
+  try {
+    const items = await item.find({ "type.eventType": eventType, "type.itemType": itemType });
+    res.json(items);
+  } 
+  catch (error) {
+    console.error('Failed to get items by type and event:', error);
+    res.status(500).json({ message: 'Failed to get items by type and event' });
   }
 };
