@@ -7,7 +7,7 @@ const userRoute = require('./src/user/userRoute');
 const eventRoute = require('./src/event/eventRoutes');
 const paymentRoute = require('./src/payment/paymentRoute');
 const itemRoute = require('./src/item/itemRoutes');
-const cors = require('cors')
+const cors = require('cors');
 
 const app = express()
 app.use(cors())
@@ -19,6 +19,7 @@ app.use('/payment', paymentRoute)
 app.use('/event', eventRoute)
 app.use('/item', itemRoute)
 
+// addItemsToDB() //Used to add the list of items to the DB
 const PORT = process.env.PORT || 5000;
 
 

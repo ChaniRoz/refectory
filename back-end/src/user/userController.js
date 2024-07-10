@@ -7,7 +7,7 @@ exports.addUser = async (req, res) => {
   console.log(validateUser, "validateUser");
 
   if (validateUser.error) {
-    return res.status(400).json({ message: 'valid' });
+    return res.status(400).json({ message: 'invalid data' });
   }
   const request = await user.create(req.body);
   console.log("request", request);

@@ -1,12 +1,11 @@
-const mongoose = require('mongoose')
-const EventType = require('../enum/eventType')
+const mongoose = require('mongoose');
+const ItemType = require('../enum/itemType');
+const EventType = require('../enum/eventType');
 
 const itemSchema = new mongoose.Schema({
-    itemId: Number,
     type: {
-        type: String,
-        enum: EventType,
-        default: 'Pareve'
+        itemType: ItemType,
+        eventType: EventType
     },
     name: String,
     price: Number,
