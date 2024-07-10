@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import UsePost from './hooks/postHook';
+import UseGet from './hooks/postHook';
 
 const http =' http://localhost:3000'|| process.env.API_URL ;
 
@@ -9,7 +10,12 @@ const itemSlice = createSlice({
     reducers: {
         // Get: (state) => {
         //     const [get, data] = UseGet();
-        //     get(`${http}/user`);
+        //     get(`${http}/item`);
+        //     state.Post = data;
+        // },
+        // GetItemsByTypeAndEvent: (state,actions) => {
+        //     const [get, data] = UseGet();
+        //     get(`${http}/item`, actions.payload);
         //     state.Post = data;
         // },
         Add: (state, actions) => {
@@ -20,34 +26,6 @@ const itemSlice = createSlice({
     }
 });
 
-export const { Add } = itemSlice.actions;
+export const { Add ,Get,GetItemsByTypeAndEvent} = itemSlice.actions;
 export const selectitems = state => state.itemSlice.items;
 export default itemSlice.reducer;
-
-// export const createuser = createAsyncThunk('', async (_user) => {
-//     try {
-//         const response = await axios.post(`${http}/user`, _user);
-//         return response.data;
-//     } catch (error) {
-//         return error;
-//     }
-// });
-
-// export const edituser = createAsyncThunk('', async ({userId, updateuser }) => {
-//     try {
-//         console.log(updateuser);
-//         const response = await axios.put(`${http}/user/${userId}`, updateuser);
-//         return response.data;
-//     } catch (error) {
-//         return error;
-//     }
-// });
-
-// export const deleteuser = createAsyncThunk('', async userId => {
-//     try {
-//         const response = await axios.delete(`${http}/user/${userId}`);
-//         return response.data;
-//     } catch (error) {
-//         return error;
-//     }
-// });

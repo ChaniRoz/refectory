@@ -38,31 +38,3 @@ const eventSlice = createSlice({
 export const { Add } = eventSlice.actions;
 export const selectEvents = state => state.eventSlice.events;
 export default eventSlice.reducer;
-
-// export const createEvent = createAsyncThunk('', async (_event) => {
-//     try {
-//         const response = await axios.post(`${http}/event`, _event);
-//         return response.data;
-//     } catch (error) {
-//         return error;
-//     }
-// });
-
-// export const editEvent = createAsyncThunk('', async ({eventId, updateEvent }) => {
-//     try {
-//         console.log(updateEvent);
-//         const response = await axios.put(`${http}/event/${eventId}`, updateEvent);
-//         return response.data;
-//     } catch (error) {
-//         return error;
-//     }
-// });
-
-// export const deleteEvent = createAsyncThunk('', async eventId => {
-//     try {
-//         const response = await axios.delete(`${http}/event/${eventId}`);
-//         return response.data;
-//     } catch (error) {
-//         return error;
-//     }
-// });
