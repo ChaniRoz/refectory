@@ -1,14 +1,13 @@
-// import ChatBtn from './components/chat/chatBtn'
-import EventDetailsStage from './components/form/eventDetailsStage';
+import ChatBtn from './components/chat/chatBtn'
 import Form from './components/form/form';
+import MenuDetailsStage from './components/form/menuDetailsStage';
 import PrimarySearchAppBar from './components/navBar/nav'
-import FormattedInputs from './components/item/item'
 function App() {
   return (
     <>
       <PrimarySearchAppBar />
-      <EventDetailsStage/>
-      <FormattedInputs/>
+      {/* <Form/> */}
+      <MenuDetailsStage />
     </>
   );
 }

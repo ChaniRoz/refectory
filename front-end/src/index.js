@@ -9,24 +9,25 @@ import { configureStore } from '@reduxjs/toolkit';
 import userSlice from './redux/userSlice';
 import eventSlice from './redux/eventSlice';
 import itemSlice from './redux/itemSlice';
+import orderSlice from './redux/orderSlice';
 
 const store = configureStore({
   reducer: {
     userSlice,
     eventSlice,
-    itemSlice
+    itemSlice,
+    orderSlice
   }
 })
 
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
-const MyContext=React.createContext();
+const MyContext = React.createContext();
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-        <Provider store={store}>
-          <App />
-        </Provider>
+      <Provider store={store}>
+        <App />
+      </Provider>
     </BrowserRouter>
   </React.StrictMode>
 );

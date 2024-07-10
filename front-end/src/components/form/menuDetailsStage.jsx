@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FormControl, Checkbox, FormControlLabel, FormGroup, FormHelperText, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
+import { FormControl, Checkbox, FormControlLabel, FormGroup, FormHelperText, Accordion, AccordionSummary, AccordionDetails, Button } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 function MenuDetailsStage() {
@@ -206,6 +206,8 @@ function MenuDetailsStage() {
                 </AccordionDetails>
             </Accordion>
 
+            <Button variant="contained" color="secondary" >Previous</Button>
+            <Button variant="contained" color="primary">For payment</Button>
         </FormControl>
     );
 }
