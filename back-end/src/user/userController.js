@@ -24,11 +24,12 @@ exports.getAllUsers = async (req, res) => {
   }
 };
 
-exports.getUserById = async (req, res) => {
-  const { userId } = req.params.userId;
+exports.getUserByEmail = async (req, res) => {
+  const { email } = req.params.email;
 
   try {
-    const User = await user.findOne({ userId });
+    const User = await user.findOne({ email });
+    console.log(User,"User");
     if (!User) {
       return res.status(404).json({ message: 'user not found' });
     }
