@@ -28,10 +28,10 @@ function Form() {
             <h2>Event details</h2>
             <EventDetailsStage />
           </div>
-          <Button variant="contained" color="primary" onClick={handleNext}>Start</Button>
+          {/* <Button variant="contained" color="primary" onClick={handleNext}>Start</Button> */}
         </div>
       )}
-      {stage === 2 && (
+      {/* {stage === 2 && (
         <div>
           <div>
             <h2>Select Menu</h2>
@@ -55,7 +55,7 @@ function Form() {
           <h2>הזמנתך בוצעה בהצלחה!</h2>
           <Button variant="contained" color="secondary" onClick={handlePrevious}>Previous</Button>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

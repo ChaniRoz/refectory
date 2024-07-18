@@ -3,13 +3,13 @@ import { styled } from '@mui/material/styles';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import TextField from '@mui/material/TextField';
-import { Button } from '@mui/material';
-import { useDispatch } from 'react-redux';
-import { Add } from '../../redux/eventSlice';
-
+import { Box, Button } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { Add, Save } from '../../redux/eventSlice';
+import MenuDetailsStage from './menuDetailsStage';
+import {init} from '../../redux/eventSlice';
 
 const BpIcon = styled('span')(({ theme }) => ({
   borderRadius: '50%',
@@ -65,82 +65,106 @@ function BpRadio(props) {
   );
 }
 
-function EventDetailsStage() {
-  const [diners, setDiners] = React.useState(0);
-  const [date, setDate] = React.useState(0);
-  const [houer, setHouer] = React.useState('0');
-  const [design, setDesign] = React.useState('Black')
-  const [type, setType] = React.useState('Pareve')
-  const dispatch = useDispatch();
 
-  const handleSave = () => {
+function EventDetailsStage() {
+  const eventData = init;
+  const [diners, setDiners] = React.useState(eventData.diners);
+  const [date, setDate] = React.useState(eventData.date);
+  const [hour, setHour] = React.useState(eventData.hour);
+  const [design, setDesign] = React.useState(eventData.design)
+  const [type, setType] = React.useState(eventData.type)
+  const [showMenuDetailsStage, setShowMenuDetailsStage] = React.useState(false);
+  const dispatch = useDispatch();
+  console.log("evet", eventData);
+  const handleSaveAndNext = () => {
     const event = {
       diners,
       date,
-      houer,
+      hour,
       design,
       type
     }
-    console.log(event);
-    dispatch(Add(event)); 
+    dispatch(Save(event));
+    setShowMenuDetailsStage(true);
   };
 
+
   return (
-    <FormControl>
-      <FormLabel id="type">Event Type</FormLabel>
-      <RadioGroup
-        defaultValue="Pareve"
-        aria-labelledby="type"
-        name="type-radios"
-        onChange={(e) => setType(e.target.value)}
-      >
-        <FormControlLabel value="Fleshy" control={<BpRadio />} label="Fleshy" />
-        <FormControlLabel value="Milky" control={<BpRadio />} label="Milky" />
-        <FormControlLabel value="Pareve" control={<BpRadio />} label="Pareve" />
-      </RadioGroup>
-      <TextField
-        id="number"
-        label="Number of Diners"
-        type="number"
-        InputLabelProps={{
-          shrink: true,
-        }}
-        variant="standard"
-        onChange={(e) => setDiners(e.target.value)}
-      />
-      <TextField
-        id="date"
-        label="Date"
-        type="date"
-        InputLabelProps={{
-          shrink: true,
-        }}
-        variant="standard"
-        onChange={(e) => setDate(e.target.value)}
-      />
-      <TextField
-        id="houer"
-        label="Houer"
-        type="time"
-        InputLabelProps={{
-          shrink: true,
-        }}
-        variant="standard"
-        onChange={(e) => setHouer(e.target.value)}
-      />
-      <FormLabel id="design">The design of the hall</FormLabel>
-      <RadioGroup
-        defaultValue="Black"
-        aria-labelledby="demo-customized-radios"
-        name="design-radios"
-        onChange={(e) => setDesign(e.target.value)}
-      >
-        <FormControlLabel value="Black" control={<BpRadio />} label="Black" />
-        <FormControlLabel value="Blue" control={<BpRadio />} label="Blue" />
-        <FormControlLabel value="Beige" control={<BpRadio />} label="Beige" />
-      </RadioGroup>
-      <Button onClick={handleSave} type="submit">הבא</Button>
-    </FormControl>
+    <div>
+      {!showMenuDetailsStage && (
+        <Box component="form" height={200}
+          width={200}
+          my={4}
+          onSubmit={handleSaveAndNext}>
+          <FormLabel id="type">Event Type</FormLabel>
+          <RadioGroup
+            defaultValue="Pareve"
+            aria-labelledby="type"
+            name="type-radios"
+            value={type}
+            onChange={(e) => setType(e.target.value)}
+          >
+            <FormControlLabel value="Fleshy" control={<BpRadio />} label="Fleshy" />
+            <FormControlLabel value="Milky" control={<BpRadio />} label="Milky" />
+            <FormControlLabel value="Pareve" control={<BpRadio />} label="Pareve" />
+          </RadioGroup>
+          <TextField
+            required
+            id="number"
+            label="number of diners"
+            type="number"
+            value={diners}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            variant="standard"
+            onChange={(e) => setDiners(e.target.value)}
+          />
+          <TextField
+            required
+            id="date"
+            label="Date"
+            type="date"
+            value={date}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            variant="standard"
+            onChange={(e) => setDate(e.target.value)}
+          />
+          <TextField
+            required
+            id="hour"
+            label="Houer"
+            type="time"
+            value={hour}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            variant="standard"
+            onChange={(e) => setHour(e.target.value)}
+          />
+          <br />
+          <FormLabel id="design">The design of the hall</FormLabel>
+          <RadioGroup
+            defaultValue="Black"
+            aria-labelledby="demo-customized-radios"
+            name="design-radios"
+            value={design}
+            onChange={(e) => setDesign(e.target.value)}
+          >
+            <FormControlLabel value="Black" control={<BpRadio />} label="Black" />
+            <FormControlLabel value="Blue" control={<BpRadio />} label="Blue" />
+            <FormControlLabel value="Beige" control={<BpRadio />} label="Beige" />
+          </RadioGroup>
+          <Button type="submit">Start</Button>
+        </Box>
+      )}
+      {showMenuDetailsStage && (
+        <div>
+          <MenuDetailsStage />
+        </div>)}
+    </div>
 
   );
 }
