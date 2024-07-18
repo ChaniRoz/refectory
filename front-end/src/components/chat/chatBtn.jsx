@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
@@ -15,30 +15,31 @@ import Fab from '@mui/material/Fab';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import io from 'socket.io-client';
-import SingaleMessageComponent from './singaleMessegeComponent'; // Assuming the correct path to the component
+import SingaleMessageComponent from './singaleMessegeComponent';
 
-const clientId = 1; // Replace with the actual logic to get client ID
-
+const clientId = Math.floor(Math.random() * 1000); // ID ייחודי לכל לקוח
 const socket = io('http://localhost:5000', { query: { clientId } });
 
 export default function ClientChat() {
-  const [open, setOpen] = React.useState(false);
-  const [scroll, setScroll] = React.useState('paper');
-  const [message, setMessage] = React.useState('');
-  const [messages, setMessages] = React.useState([]);
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState('');
+  const [messages, setMessages] = useState([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     socket.on('message', (message) => {
-      setMessages((prevMessages) => [...prevMessages, { text: message, author: 'Me', timestamp: new Date().toLocaleTimeString() }]);
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { text: message.text, author: message.clientId === 'admin' ? 'admin' : 'client', timestamp: new Date().toLocaleTimeString() },
+      ]);
     });
+
     return () => {
       socket.off('message');
     };
-  }, [messages]);
+  }, []);
 
-  const handleClickOpen = (scrollType) => () => {
+  const handleClickOpen = () => {
     setOpen(true);
-    setScroll(scrollType);
   };
 
   const handleClose = () => {
@@ -47,12 +48,14 @@ export default function ClientChat() {
 
   const sendMessage = (e) => {
     e.preventDefault();
-    socket.emit('message', { text: message, id: clientId });
+    socket.emit('message', { text: message, clientId });
+    socket.emit('message', { text: message });
+
     setMessage('');
   };
 
-  const descriptionElementRef = React.useRef(null);
-  React.useEffect(() => {
+  const descriptionElementRef = useRef(null);
+  useEffect(() => {
     if (open) {
       const { current: descriptionElement } = descriptionElementRef;
       if (descriptionElement !== null) {
@@ -71,7 +74,7 @@ export default function ClientChat() {
 
   return (
     <React.Fragment>
-      <IconButton aria-label="notifications" size="large" onClick={handleClickOpen('paper')}>
+      <IconButton aria-label="notifications" size="large" onClick={handleClickOpen}>
         <StyledFab color="default" aria-label="add">
           <Badge badgeContent={messages.length} color="error">
             <ChatIcon />
@@ -81,7 +84,6 @@ export default function ClientChat() {
       <Dialog
         open={open}
         onClose={handleClose}
-        scroll={scroll}
         aria-labelledby="scroll-dialog-title"
         aria-describedby="scroll-dialog-description"
       >
@@ -91,7 +93,7 @@ export default function ClientChat() {
           </IconButton>
           Talk to us
         </DialogTitle>
-        <DialogContent dividers={scroll === 'paper'}>
+        <DialogContent dividers>
           <DialogContentText id="scroll-dialog-description" ref={descriptionElementRef} tabIndex={-1} width={300}>
             <div>
               {messages.map((msg, index) => (

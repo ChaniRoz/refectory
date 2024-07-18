@@ -27,6 +27,8 @@ mongoose.connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useUnified
     () => app.listen(PORT, () => console.log(`server runing on port ${PORT}`)))
     .catch((error) => console.log(error.message));
 
+
+
 const http = require('http');
 // const express = require('express');
 const { Server } = require('socket.io');
@@ -49,48 +51,32 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../front-end/src', 'index.html'));
 });
 
-
 const clients = {}; // אובייקט לאחסון הלקוחות המחוברים
 
-
 io.on('connection', (socket) => {
-
     const clientId = socket.handshake.query.clientId; // קבל את זיהוי הלקוח
 
     // הוספת הלקוח לאובייקט הלקוחות
-    // clients[socket.id] = socket;
     clients[clientId] = socket;
-
     io.emit('clients', Object.keys(clients)); // שליחת רשימת הלקוחות לכל הלקוחות
 
     // הצטרפות לחדר לפי ID
-    const roomId = socket.id;
-    socket.join(roomId);
-    io.to(roomId).emit('message', 'Hello from server! You are connected.');
-    io.to(roomId).emit('message-admin', 'Hello from server! You are connected.');
+    socket.join(clientId);
 
     socket.on('message', (message) => {
-        // console.log(message.id, "message.idmessage.idmessage.id");
-
-        console.log(`Message from ${socket.id} , clientId : ${message.id}  massage: ${message.text}`);
-        // io.to(roomId).emit('message', message);
-        io.emit('message-admin', message.text);
-        io.emit('message', message.text);
-
-
+        console.log(`Message from ${clientId}: ${message.text}`);
+        io.to('admin').emit('message', { clientId, text: message.text });
     });
+
     socket.on('message-admin', (message) => {
-        console.log(`Message from ${socket.id} , clientId : ${message.id}  massage: ${message.text}`);
-        io.emit('massage', message.text);
-        io.emit('message-admin', message.text);
-
-
+        console.log(`Admin message to ${message.clientId}: ${message.text}`);
+        io.to(message.clientId).emit('message', { clientId: 'admin', text: message.text });
     });
 
     socket.on('disconnect', () => {
-        console.log(`${socket.id} disconnected`);
+        console.log(`${clientId} disconnected`);
         // הסרת הלקוח מאובייקט הלקוחות
-        delete clients[socket.id];
+        delete clients[clientId];
         io.emit('clients', Object.keys(clients)); // עדכון רשימת הלקוחות
     });
 });

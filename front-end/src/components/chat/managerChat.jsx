@@ -17,30 +17,25 @@ import TextField from '@mui/material/TextField';
 import io from 'socket.io-client';
 import SingaleMessageComponent from './singaleMessegeComponent';
 
-
-const clientId = 1111;
-const socket = io('http://localhost:5000', { query: { clientId } });
+const socket = io('http://localhost:5000', { query: { clientId: 'admin' } });
 
 export default function AdminChat() {
   const [open, setOpen] = useState(false);
   const [scroll, setScroll] = useState('paper');
   const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState({});
   const [clients, setClients] = useState([]);
+  const [selectedClient, setSelectedClient] = useState(null);
 
   useEffect(() => {
-    // socket.on('message', (message) => {
-    //   setMessages((prevMessages) => [
-    //     ...prevMessages,
-    //     { text: message, author: 'client', timestamp: new Date().toLocaleTimeString() },
-    //   ]);
-
-    // });
-    socket.on('message-admin', (message) => {
-      setMessages((prevMessages) => [
+    socket.on('message', ({ clientId, text }) => {
+      setMessages((prevMessages) => ({
         ...prevMessages,
-        { text: message, author: 'Me', timestamp: new Date().toLocaleTimeString() },
-      ]);
+        [clientId]: [
+          ...(prevMessages[clientId] || []),
+          { text, author: 'client', timestamp: new Date().toLocaleTimeString() },
+        ],
+      }));
     });
 
     socket.on('clients', (clients) => {
@@ -51,7 +46,7 @@ export default function AdminChat() {
       socket.off('message');
       socket.off('clients');
     };
-  }, [messages]);
+  }, []);
 
   const handleClickOpen = (scrollType) => () => {
     setOpen(true);
@@ -61,18 +56,21 @@ export default function AdminChat() {
   const handleClose = () => {
     setOpen(false);
   };
-  const handleButtonClient = (e) => {
 
-  }
   const sendMessage = (e) => {
     e.preventDefault();
+    if (selectedClient) {
+      socket.emit('message-admin', { clientId: selectedClient, text: message });
 
-    // socket.emit('message',);
-
-    socket.emit('message-admin', { text: message, id: clientId });
-    socket.emit('message', { text: message, id: clientId });
-
-    setMessage('');
+      setMessages((prevMessages) => ({
+        ...prevMessages,
+        [selectedClient]: [
+          ...(prevMessages[selectedClient] || []),
+          { text: message, author: 'admin', timestamp: new Date().toLocaleTimeString() },
+        ],
+      }));
+      setMessage('');
+    }
   };
 
   const descriptionElementRef = useRef(null);
@@ -119,11 +117,11 @@ export default function AdminChat() {
           <DialogContentText id="scroll-dialog-description" ref={descriptionElementRef} tabIndex={-1} width={300}>
             <div>
               {clients.map((client, index) => (
-                <Button key={index} onClick={handleButtonClient(client)}>
+                <Button key={index} onClick={() => setSelectedClient(client)}>
                   {client}
                 </Button>
               ))}
-              {messages.map((msg, index) => (
+              {selectedClient && messages[selectedClient] && messages[selectedClient].map((msg, index) => (
                 <SingaleMessageComponent key={index} message={msg} />
               ))}
             </div>
@@ -139,8 +137,9 @@ export default function AdminChat() {
               style={{ width: '350px' }}
               value={message}
               onChange={(e) => setMessage(e.target.value)}
+              disabled={!selectedClient}
             />
-            <Button type="submit" endIcon={<SendIcon />}>
+            <Button type="submit" endIcon={<SendIcon />} disabled={!selectedClient}>
               Send
             </Button>
           </Box>
