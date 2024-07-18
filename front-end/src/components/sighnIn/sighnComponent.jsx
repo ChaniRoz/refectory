@@ -17,21 +17,40 @@ import TextField from '@mui/material/TextField';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
+import UserPage from './userDetiles'
+import { useDispatch } from 'react-redux';
+import { Get } from '../../redux/userSlice';
+
 
 const emails = ['username@gmail.com', 'user02@gmail.com'];
 
 function SimpleDialog(props) {
+  const dispatch = useDispatch();
+
+  const [email, setEmail] = React.useState('')
+
   const [open, setOpen] = React.useState(false);
 
   const handleClose = () => {
     // onClose(setOpen);
   };
+
+  const handleGetDetiles = () => {
+    const userDetails = {
+      email: email,
   
+    }    
+    console.log("---i hehehehehehe");
+
+ dispatch(Get(userDetails))
+    setOpen(false);
+    // UserPage(z)
+};
 
   // const handleListItemClick = (value) => {
   //   onClose(value);
   // };
-
+ 
   return (
     <Dialog onClose={handleClose} open={setOpen}>
       {/* <DialogTitle>Set backup account</DialogTitle> */}
@@ -74,9 +93,11 @@ function SimpleDialog(props) {
           type="email"
           fullWidth
           variant="outlined"
+          onChange={(e) => setEmail(e.target.value)}
+
         />
         <DialogContentText>enter your Password</DialogContentText>
-         <TextField
+        <TextField
           autoFocus
           required
           margin="dense"
@@ -88,17 +109,17 @@ function SimpleDialog(props) {
           variant="outlined"
         />
       </DialogContent>
-      
+
       <DialogActions>
         {/* <Button onClick={handleClose}>Cancel</Button> */}
-        <Button type="submit">sumbit</Button>
+        <Button type="submit" onClick={handleGetDetiles}>sumbit</Button>
       </DialogActions>
     </Dialog>
   );
 }
 
 SimpleDialog.propTypes = {
-//   onClose: PropTypes.func.isRequired,
+  //   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   selectedValue: PropTypes.string.isRequired,
 };

@@ -22,11 +22,21 @@ io.on('connection', (socket) => {
     console.log('A new user has connected', socket.id);
     sendMessageToClient('Hello from server! i sucess to connect');
 
-    socket.on('message', (message) => {  
-        console.log(`Message from ${socket.id}: ${message}`);
-        socket.emit('message', 'שלום שלום');
+    // socket.on('message', (message) => {  
+    //     console.log(`Message from ${socket.id}: ${message}`);
+    //     socket.emit('message', 'שלום שלום');
 
+    // });
+
+    socket.on('message', ({ text, clientId }) => {
+        console.log(`הודעה מ-${clientId}: ${text}`);
+        // שלח את ההודעה ללקוח הרלוונטי או טפל בה ככה שמתאים
+        const clientSocket = clients[clientId];
+        if (clientSocket) {
+            clientSocket.emit('message', text); // שלח את ההודעה בחזרה ללקוח
+        }
     });
+    
 
     socket.on('disconnect', () => {
         console.log(`${socket.id} disconnected`);

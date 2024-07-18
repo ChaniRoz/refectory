@@ -15,41 +15,26 @@ import Fab from '@mui/material/Fab';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import io from 'socket.io-client';
-import SingaleMessageComponent from './singaleMessegeComponent';
+import SingaleMessageComponent from './singaleMessegeComponent'; // Assuming the correct path to the component
 
+const clientId = 1; // Replace with the actual logic to get client ID
 
-const socket = io('http://localhost:5000');
+const socket = io('http://localhost:5000', { query: { clientId } });
 
-
-export default function ChatBtn() {
+export default function ClientChat() {
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState('paper');
   const [message, setMessage] = React.useState('');
-  const [messages, setMessages] = React.useState([
-    { text: 'Hello', author: 'Alice', timestamp: '10:00 AM' },
-    { text: 'Hi', author: 'Bob', timestamp: '10:05 AM' },
-    { text: '😀', author: 'Me', timestamp: '10:10 AM' },
-    { text: 'Hello everybody', author: 'Alice', timestamp: '10:00 AM' },
-    { text: 'How are you', author: 'Bob', timestamp: '10:05 AM' },
-    { text: 'Welcome', author: 'Me', timestamp: '10:10 AM' },
-    { text: 'Hello', author: 'Alice', timestamp: '10:00 AM' },
-    { text: 'Hi', author: 'Bob', timestamp: '10:05 AM' },
-    { text: 'Welcome', author: 'Me', timestamp: '10:10 AM' },
-    { text: 'Hello', author: 'Alice', timestamp: '10:00 AM' },
-    { text: 'Hi', author: 'Bob', timestamp: '10:05 AM' },
-    { text: 'Welcome', author: 'Me', timestamp: '10:10 AM' },
-  ]);
+  const [messages, setMessages] = React.useState([]);
 
   React.useEffect(() => {
     socket.on('message', (message) => {
-      setMessages((prevMessages) => [...prevMessages, { text: message, author: 'me', timestamp: new Date().toLocaleTimeString() }]);
-
+      setMessages((prevMessages) => [...prevMessages, { text: message, author: 'Me', timestamp: new Date().toLocaleTimeString() }]);
     });
-
     return () => {
       socket.off('message');
     };
-  }, []);
+  }, [messages]);
 
   const handleClickOpen = (scrollType) => () => {
     setOpen(true);
@@ -62,10 +47,10 @@ export default function ChatBtn() {
 
   const sendMessage = (e) => {
     e.preventDefault();
-    socket.emit('message', message);
+    socket.emit('message', { text: message, id: clientId });
     setMessage('');
-    setMessages((prevMessages) => [...prevMessages, { text: message, author: 'Server', timestamp: new Date().toLocaleTimeString() }]);
   };
+
   const descriptionElementRef = React.useRef(null);
   React.useEffect(() => {
     if (open) {
@@ -75,6 +60,7 @@ export default function ChatBtn() {
       }
     }
   }, [open]);
+
   const StyledFab = styled(Fab)({
     position: 'absolute',
     zIndex: 1,
@@ -87,7 +73,7 @@ export default function ChatBtn() {
     <React.Fragment>
       <IconButton aria-label="notifications" size="large" onClick={handleClickOpen('paper')}>
         <StyledFab color="default" aria-label="add">
-          <Badge badgeContent={17} color="error">
+          <Badge badgeContent={messages.length} color="error">
             <ChatIcon />
           </Badge>
         </StyledFab>
@@ -106,12 +92,7 @@ export default function ChatBtn() {
           Talk to us
         </DialogTitle>
         <DialogContent dividers={scroll === 'paper'}>
-          <DialogContentText
-            id="scroll-dialog-description"
-            ref={descriptionElementRef}
-            tabIndex={-1}
-            width={300} h
-          >
+          <DialogContentText id="scroll-dialog-description" ref={descriptionElementRef} tabIndex={-1} width={300}>
             <div>
               {messages.map((msg, index) => (
                 <SingaleMessageComponent key={index} message={msg} />
@@ -123,7 +104,7 @@ export default function ChatBtn() {
           <Box component="form" onSubmit={sendMessage} sx={{ '& .MuiTextField-root': { m: 1, width: '25ch' } }} noValidate autoComplete="off">
             <TextField
               id="outlined-multiline-flexible"
-              label="Multiline"
+              label="Message"
               multiline
               maxRows={4}
               style={{ width: '350px' }}
