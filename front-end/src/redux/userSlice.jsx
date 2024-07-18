@@ -1,7 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import UsePost from './hooks/postHook';
+import UseGet from './hooks/getHook';
 
-const http =' http://localhost:3000'|| process.env.API_URL ;
+
+const http = ' http://localhost:3000' || process.env.API_URL;
 
 const userSlice = createSlice({
     name: "user",
@@ -17,9 +19,18 @@ const userSlice = createSlice({
             const Post = UsePost();
             Post(`${http}/user`, actions.payload)
         },
+        AddGoogleUser: (state,actions) => {
+            console.log(actions.payload);
+            const Post = UsePost();
+            Post(`${http}/user`, actions.payload)
+
+            // const [get, data] = UseGet();
+            // get(`${http}/auth/google`);
+            // state.Post = data;
+        }
     }
 });
 
-export const { Add } = userSlice.actions;
+export const { Add, AddGoogleUser } = userSlice.actions;
 export const selectusers = state => state.userSlice.users;
 export default userSlice.reducer;

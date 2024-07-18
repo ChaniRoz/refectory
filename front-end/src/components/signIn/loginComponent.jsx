@@ -8,6 +8,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useDispatch } from 'react-redux';
 import { Add } from '../../redux/userSlice';
+import GoogleAuth from './loginWithGoogle';
 
 export default function FormDialog() {
     const dispatch = useDispatch();
@@ -51,6 +52,7 @@ export default function FormDialog() {
                 }}
             >
                 <DialogTitle>Sign in</DialogTitle>
+                <GoogleAuth/>
                 <DialogContent>
                     enter your personal detiles
                     <TextField

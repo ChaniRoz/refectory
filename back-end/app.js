@@ -42,8 +42,7 @@ mongoose.connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useUnified
 
 //login with google
 app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/' }), (req, res) => {
-    res.redirect('/profile');
-    // res.redirect('/users/signup')
+    res.redirect('http://localhost:3001/');
 });
 
 app.get('/auth/logout', (req, res) => {
