@@ -1,25 +1,25 @@
 import { createSlice } from "@reduxjs/toolkit";
 import UsePost from './hooks/postHook';
 
-const http =' http://localhost:3000'|| process.env.API_URL ;
+const http = ' http://localhost:3000' || process.env.API_URL;
 
-const userSlice = createSlice({
-    name: "user",
+const orderSlice = createSlice({
+    name: "order",
     initialState: {},
     reducers: {
         // Get: (state) => {
         //     const [get, data] = UseGet();
-        //     get(`${http}/user`);
+        //     get(`${http}/order`);
         //     state.Post = data;
         // },
         Add: (state, actions) => {
             console.log(actions.payload);
             const Post = UsePost();
-            Post(`${http}/user`, actions.payload)
+            Post(`${http}/order`, actions.payload)
         },
     }
 });
 
-export const { Add } = userSlice.actions;
-export const selectusers = state => state.userSlice.users;
-export default userSlice.reducer;
+export const { Add } = orderSlice.actions;
+export const selectorder = state => state.orderSlice.order;
+export default orderSlice.reducer;

@@ -208,7 +208,6 @@ function MenuDetailsStage() {
                             </FormControl>
                         </AccordionDetails>
                     </Accordion>
-
                     <Accordion>
                         <AccordionSummary
                             expandIcon={<ExpandMoreIcon />}
@@ -248,6 +247,34 @@ function MenuDetailsStage() {
                 </div>
             )}
         </div>
+// =======
+//             <Accordion>
+//                 <AccordionSummary
+//                     expandIcon={<ExpandMoreIcon />}
+//                     aria-controls="panel1-content"
+//                 >
+//                     Dessert
+//                 </AccordionSummary>
+//                 <AccordionDetails>
+//                     <FormControl
+//                         required
+//                         error={dessertError}
+//                     >
+//                         <FormHelperText>You have to pick 1</FormHelperText>
+//                         <FormGroup>
+//                             <FormControlLabel control={<Checkbox checked={pie_plate} onChange={handleDessertChange} name="pie_plate" />} label="pie plate" />
+//                             <FormControlLabel control={<Checkbox checked={ice_cream} onChange={handleDessertChange} name="ice_cream" />} label="ice cream" />
+//                             <FormControlLabel control={<Checkbox checked={mousse} onChange={handleDessertChange} name="mousse" />} label="mousse" />
+//                             <FormControlLabel control={<Checkbox checked={soufflé} onChange={handleDessertChange} name="soufflé" />} label="soufflé" />
+//                         </FormGroup>
+//                     </FormControl>
+//                 </AccordionDetails>
+//             </Accordion>
+
+//             <Button variant="contained" color="secondary" >Previous</Button>
+//             <Button variant="contained" color="primary">For payment</Button>
+//         </FormControl>
+// >>>>>>> main
     );
 }
 export default MenuDetailsStage;
