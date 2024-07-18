@@ -15,11 +15,11 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import FormDialog from "../sighnIn/loginComponent";
+import FormDialog from "../signIn/loginComponent";
 import Dialog from '@mui/material/Dialog';
 import DialogContentText from '@mui/material/DialogContentText';
 import { DialogContent } from '@mui/material';
-import SimpleDialog from "../sighnIn/sighnComponent";
+import SimpleDialog from "../signIn/signComponent";
 
 
 const Search = styled('div')(({ theme }) => ({
