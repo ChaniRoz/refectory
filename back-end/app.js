@@ -33,7 +33,7 @@ app.use('/payment', paymentRoute)
 app.use('/event', eventRoute)
 app.use('/item', itemRoute)
 
-addItemsToDB()
+// addItemsToDB()
 
 const PORT = process.env.PORT || 5000;
 //mongo
@@ -72,52 +72,53 @@ app.get('/', (req, res) => {
     res.send('Home Page');
 });
 
+const http = require('http');
+const { Server } = require('socket.io');
+const path = require('path');
+const server = http.createServer(app);
+const io = new Server(server, {
+    cors: {
+        origin: '*',
+        credentials: true,
+    },
+});
 
-// const http = require('http');
-// const { Server } = require('socket.io');
-// const path = require('path');
-// const { required } = require('joi');
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, 'client/build')));
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../front-end/src', 'index.html'));
+});
 
-// const server = http.createServer();
-// const io = new Server(server, {
-//     cors: {
-//         origin: '*',
-//         credentials: true,
-//     },
-// });
+const clients = {}; 
 
+io.on('connection', (socket) => {
+    const clientId = socket.handshake.query.clientId; 
 
-// app.use(express.static(path.join(__dirname, 'client/build')));
-// app.get('*', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-// });
+    clients[clientId] = socket;
+    io.emit('clients', Object.keys(clients)); 
 
-// io.on('connection', (socket) => {
-//     console.log('A new user has connected', socket.id);
-//     sendMessageToClient('Hello from server! i sucess to connect');
+    socket.join(clientId);
 
-//     socket.on('message', (message) => {
-//         console.log(`Message from ${socket.id}: ${message}`);
-//         socket.emit('message', 'שלום שלום');
+    socket.on('message', (message) => {
+        console.log(`Message from ${clientId}: ${message.text}`);
+        io.to('admin').emit('message', { clientId, text: message.text });
+        io.to(clientId).emit('message', { clientId, text: message.text });
 
-//     });
+    });
 
-//     socket.on('disconnect', () => {
-//         console.log(`${socket.id} disconnected`);
-//         sendMessageToClient('error i dont sucess to connect');
+    socket.on('message-admin', (message) => {
+        console.log(`Admin message to ${message.clientId}: ${message.text}`);
+        io.to(message.clientId).emit('message', { clientId: 'admin', text: message.text });
+    });
 
+    socket.on('disconnect', () => {
+        console.log(`${clientId} disconnected`);
+        delete clients[clientId];
+        io.emit('clients', Object.keys(clients)); 
+    });
+});
 
-//     });
-
-//     socket.on('setUsername', (username) => {
-//         console.log(`User ${socket.id} set username to ${username}`);
-//     });
-// });
-// const sendMessageToClient = (message) => {
-//     io.emit('message', message);
-// };
-
-// mongoose.connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true }).then(
-//     () => app.listen(PORT, () => console.log(`server runing on port ${PORT}`)))
-//     .catch((error) => console.log(error.message));
-
+server.listen(5000, () => {
+    console.log('Server is running on port 5000');
+});
