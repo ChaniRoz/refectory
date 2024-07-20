@@ -6,10 +6,10 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
 import TextField from '@mui/material/TextField';
 import { Box, Button } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import { Add, Save } from '../../redux/eventSlice';
+import { useDispatch } from 'react-redux';
+import { Save } from '../../redux/eventSlice';
 import MenuDetailsStage from './menuDetailsStage';
-import {init} from '../../redux/eventSlice';
+import { init } from '../../redux/eventSlice';
 
 const BpIcon = styled('span')(({ theme }) => ({
   borderRadius: '50%',
@@ -75,9 +75,8 @@ function EventDetailsStage() {
   const [type, setType] = React.useState(eventData.type)
   const [showMenuDetailsStage, setShowMenuDetailsStage] = React.useState(false);
   const dispatch = useDispatch();
-  console.log("evet ", eventData);
+
   const handleSaveAndNext = (e) => {
-    e.preventDefault();
     const event = {
       diners,
       date,

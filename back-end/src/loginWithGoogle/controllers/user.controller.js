@@ -50,7 +50,7 @@ exports.updateUser = async (req, res) => {
   const { displayName, email } = req.body;
 
   try {
-    const updatedUser = await userService.updateUser( { displayName, email });
+    const updatedUser = await userService.updateUser({ displayName, email });
     if (!updatedUser) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -62,8 +62,8 @@ exports.updateUser = async (req, res) => {
 };
 
 exports.getUserByName = async (req, res) => {
-  const { displayName } = req.params;
-
+  const displayName = req.params;
+  console.log(displayName);
   try {
     const user = await userService.getUserByName(displayName);
     if (!user) {

@@ -4,13 +4,16 @@ const EventDesign = require('../enum/eventDesign');
 
 
 const eventSchema = new mongoose.Schema({
-    userName: String,
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
     type: {
         type: String,
         enum: EventType,
         default: 'Pareve'
     },
-    orderId: Number,
     date: Date,
     houer: String,
     diners: Number,
@@ -19,7 +22,11 @@ const eventSchema = new mongoose.Schema({
         enum: EventDesign,
         default: 'Black'
     },
-    PaymentId: Number
+    PaymentId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'payment',
+        required: true
+    }
 })
 
 module.exports = mongoose.model('event', eventSchema)
