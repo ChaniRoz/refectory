@@ -7,11 +7,6 @@ const orderSlice = createSlice({
     name: "order",
     initialState: {},
     reducers: {
-        // Get: (state) => {
-        //     const [get, data] = UseGet();
-        //     get(`${http}/order`);
-        //     state.Post = data;
-        // },
         Add: (state, actions) => {
             console.log(actions.payload);
             const Post = UsePost();
