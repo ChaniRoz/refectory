@@ -6,10 +6,10 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 import { IconButton } from '@mui/material';
+import Badge from '@mui/material/Badge';
 import ChatIcon from '@mui/icons-material/Chat';
 import CloseIcon from '@mui/icons-material/Close';
 import SendIcon from '@mui/icons-material/Send';
-import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
 import Fab from '@mui/material/Fab';
 import Box from '@mui/material/Box';
@@ -17,29 +17,40 @@ import TextField from '@mui/material/TextField';
 import io from 'socket.io-client';
 import SingaleMessageComponent from './singaleMessegeComponent';
 
-const clientId = Math.floor(Math.random() * 1000); // ID ייחודי לכל לקוח
-const socket = io('http://localhost:5000', { query: { clientId } });
+const socket = io('http://localhost:5000', { query: { clientId: 'admin' } });
 
-export default function ClientChat() {
+export default function AdminChat() {
   const [open, setOpen] = useState(false);
+  const [scroll, setScroll] = useState('paper');
   const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState({});
+  const [clients, setClients] = useState([]);
+  const [selectedClient, setSelectedClient] = useState(null);
 
   useEffect(() => {
-    socket.on('message', (message) => {
-      setMessages((prevMessages) => [
+    socket.on('message', ({ clientId, text }) => {
+      setMessages((prevMessages) => ({
         ...prevMessages,
-        { text: message.text, author: message.clientId === 'admin' ? 'admin' : 'client', timestamp: new Date().toLocaleTimeString() },
-      ]);
+        [clientId]: [
+          ...(prevMessages[clientId] || []),
+          { text, author: 'client '+ clientId + ' ', timestamp: new Date().toLocaleTimeString() },
+        ],
+      }));
+    });
+
+    socket.on('clients', (clients) => {
+      setClients(clients);
     });
 
     return () => {
       socket.off('message');
+      socket.off('clients');
     };
   }, []);
 
-  const handleClickOpen = () => {
+  const handleClickOpen = (scrollType) => () => {
     setOpen(true);
+    setScroll(scrollType);
   };
 
   const handleClose = () => {
@@ -48,9 +59,18 @@ export default function ClientChat() {
 
   const sendMessage = (e) => {
     e.preventDefault();
-    socket.emit('message', { text: message, clientId });
+    if (selectedClient) {
+      socket.emit('message-admin', { clientId: selectedClient, text: message });
 
-    setMessage('');
+      setMessages((prevMessages) => ({
+        ...prevMessages,
+        [selectedClient]: [
+          ...(prevMessages[selectedClient] || []),
+          { text: message, author: 'admin', timestamp: new Date().toLocaleTimeString() },
+        ],
+      }));
+      setMessage('');
+    }
   };
 
   const descriptionElementRef = useRef(null);
@@ -73,9 +93,9 @@ export default function ClientChat() {
 
   return (
     <React.Fragment>
-      <IconButton aria-label="notifications" size="large" onClick={handleClickOpen}>
-        <StyledFab color="default" aria-label="add">
-          <Badge badgeContent={messages.length} color="error">
+      <IconButton aria-label="admin chat" size="large" onClick={handleClickOpen('paper')}>
+        <StyledFab color="primary" aria-label="admin-chat">
+          <Badge badgeContent={clients.length} color="secondary">
             <ChatIcon />
           </Badge>
         </StyledFab>
@@ -83,6 +103,7 @@ export default function ClientChat() {
       <Dialog
         open={open}
         onClose={handleClose}
+        scroll={scroll}
         aria-labelledby="scroll-dialog-title"
         aria-describedby="scroll-dialog-description"
       >
@@ -90,12 +111,17 @@ export default function ClientChat() {
           <IconButton aria-label="exit" onClick={handleClose}>
             <CloseIcon />
           </IconButton>
-          Talk to us
+          Admin Chat
         </DialogTitle>
-        <DialogContent dividers>
+        <DialogContent dividers={scroll === 'paper'}>
           <DialogContentText id="scroll-dialog-description" ref={descriptionElementRef} tabIndex={-1} width={300}>
             <div>
-              {messages.map((msg, index) => (
+              {clients.map((client, index) => (
+                <Button key={index} onClick={() => setSelectedClient(client)}>
+                  {client}
+                </Button>
+              ))}
+              {selectedClient && messages[selectedClient] && messages[selectedClient].map((msg, index) => (
                 <SingaleMessageComponent key={index} message={msg} />
               ))}
             </div>
@@ -111,8 +137,9 @@ export default function ClientChat() {
               style={{ width: '350px' }}
               value={message}
               onChange={(e) => setMessage(e.target.value)}
+              disabled={!selectedClient}
             />
-            <Button type="submit" endIcon={<SendIcon />}>
+            <Button type="submit" endIcon={<SendIcon />} disabled={!selectedClient}>
               Send
             </Button>
           </Box>
