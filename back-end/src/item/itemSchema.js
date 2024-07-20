@@ -5,13 +5,13 @@ const EventType = require('../enum/eventType');
 const itemSchema = new mongoose.Schema({
     itemType: {
         type: String,
-        enum: EventType,
-        default: 'Pareve'
+        enum: ItemType,
+        default: 'Salads'
     },
     eventType: {
         type: String,
-        enum: ItemType,
-        default: 'Salads'
+        enum: EventType,
+        default: 'Pareve'
     },
     name: String,
     price: Number

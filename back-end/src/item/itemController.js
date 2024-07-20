@@ -2,12 +2,12 @@ const item = require('./itemSchema');
 const { validate } = require('./itemValid');
 
 exports.addItem = async (req, res) => {
-  let validateItem = validate(req.body);
-  console.log(validateItem, "validateItem");
+  // let validateItem = validate(req.body);
+  // console.log(validateItem, "validateItem");
 
-  if (validateItem.error) {
-    return res.status(400).json({ message: 'Invalid data' });
-  }
+  // if (validateItem.error) {
+  //   return res.status(400).json({ message: 'Invalid data' });
+  // }
 
   try {
     const existingItem = await item.findOne({ name: req.body.name });
@@ -21,7 +21,7 @@ exports.addItem = async (req, res) => {
     res.json(newItem);
   } catch (error) {
     console.error('Failed to add item:', error);
-    return res.status(500).json({ message: 'Failed to add item' });
+    // return res.status(500).json({ message: 'Failed to add item' });
   }
 }
 
@@ -53,7 +53,7 @@ exports.getItemsByTypeAndEvent = async (req, res) => {
   const { eventType,itemType } = req.params;  
 
   try {
-    const items = await item.find({ "type.eventType": eventType, "type.itemType": itemType });
+    const items = await item.find({ eventType: eventType, itemType: itemType });
     res.json(items);
   } 
   catch (error) {

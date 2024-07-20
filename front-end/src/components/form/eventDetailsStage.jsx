@@ -75,8 +75,9 @@ function EventDetailsStage() {
   const [type, setType] = React.useState(eventData.type)
   const [showMenuDetailsStage, setShowMenuDetailsStage] = React.useState(false);
   const dispatch = useDispatch();
-  console.log("evet", eventData);
-  const handleSaveAndNext = () => {
+  console.log("evet ", eventData);
+  const handleSaveAndNext = (e) => {
+    e.preventDefault();
     const event = {
       diners,
       date,

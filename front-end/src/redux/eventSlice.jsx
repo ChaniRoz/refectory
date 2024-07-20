@@ -28,7 +28,7 @@ const eventSlice = createSlice({
         //     state.Post = data;
         // },
         Add: (state, actions) => {
-            console.log(actions.payload);
+            console.log(actions.payload,"i am event");
             const Post = UsePost();
             Post(`${http}/event`, actions.payload)
         },
