@@ -7,6 +7,8 @@ const session = require('express-session');
 const passport = require('passport');
 const userRouter = require('./src/loginWithGoogle/routers/user.router');
 require('./src/loginWithGoogle/middelware/Auth0');
+const {addItemsToDB} = require('./src/item/itemsForDB');
+
 
 const orderRoutes = require('./src/order/orderRoutes');
 const userRoute = require('./src/user/userRoute');
@@ -31,10 +33,9 @@ app.use('/payment', paymentRoute)
 app.use('/event', eventRoute)
 app.use('/item', itemRoute)
 
-// addItemsToDB() //Used to add the list of items to the DB
+addItemsToDB()
+
 const PORT = process.env.PORT || 5000;
-
-
 //mongo
 mongoose.connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true }).then(
     () => app.listen(PORT, () => console.log(`server runing on port ${PORT}`)))

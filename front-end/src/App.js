@@ -3,7 +3,7 @@ import PrimarySearchAppBar from './components/navBar/nav'
 function App() {
   return (
     <>
-      <PrimarySearchAppBar />
+      {/* <PrimarySearchAppBar /> */}
       <Form />
     </>
   );
