@@ -15,9 +15,10 @@ const orderSlice = createSlice({
     initialState: initOrder,
     reducers: {
         AddOrder: (state, actions) => {
-            console.log(actions.payload.items);
+            console.log(actions.payload);
+            initOrder={...actions.payload};
             const Post = UsePost();
-            Post(`${http}/order`, actions.payload)
+            Post(`${http}/order`,initOrder)
         },
     }
 });
