@@ -7,8 +7,6 @@ const session = require('express-session');
 const passport = require('passport');
 const userRouter = require('./src/loginWithGoogle/routers/user.router');
 require('./src/loginWithGoogle/middelware/Auth0');
-const {addItemsToDB} = require('./src/item/itemsForDB');
-
 
 const orderRoutes = require('./src/order/orderRoutes');
 const userRoute = require('./src/user/userRoute');
@@ -33,7 +31,7 @@ app.use('/payment', paymentRoute)
 app.use('/event', eventRoute)
 app.use('/item', itemRoute)
 
-// addItemsToDB()
+// addItemsToDB() //const {addItemsToDB} = require('./src/item/itemsForDB');
 
 const PORT = process.env.PORT || 5000;
 //mongo
@@ -43,7 +41,7 @@ mongoose.connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useUnified
 
 //login with google
 app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/' }), (req, res) => {
-    res.redirect('http://localhost:3001/');
+    res.redirect('http://localhost:3001');
 });
 
 app.get('/auth/logout', (req, res) => {
