@@ -1,16 +1,9 @@
-import Form from './components/form/form';
-import PrimarySearchAppBar from './components/navBar/nav'
-import ChatBtn from './components/chat/chatBtn'
-import AdminChat from './components/chat/managerChat'
+import StartPage from './components/homePage/startPage';
 
 function App() {
   return (
     <>
-      {/* <PrimarySearchAppBar /> */}
-      <AdminChat/>
-      <Form />
-      <ChatBtn/>
- 
+      <StartPage />
     </>
   );
 }
