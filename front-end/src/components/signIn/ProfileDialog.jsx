@@ -4,14 +4,12 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
-import { useDispatch } from 'react-redux';
-import { Add } from '../../redux/userSlice';
-import GoogleAuth from './loginWithGoogle';
+// import {  init } from '../../redux/userSlice';
 
-export default function  ProfileDialog() {
-    const dispatch = useDispatch();
+export default function ProfileDialog() {
 
     const [open, setOpen] = React.useState(true);
+
 
     const handleClose = () => {
         setOpen(false);
@@ -35,7 +33,7 @@ export default function  ProfileDialog() {
                 }}
             >
                 <DialogTitle>Profile</DialogTitle>
-                Profile
+                {/* {init} */}
                 <DialogActions>
                     <Button onClick={handleClose}>close</Button>
                 </DialogActions>
