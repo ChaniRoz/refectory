@@ -3,7 +3,7 @@ import { FormControl, Checkbox, FormControlLabel, FormGroup, FormHelperText, Acc
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FormattedInputs from '../payment/card';
 import { useDispatch, useSelector } from 'react-redux';
-import {  AddEvent, initEvent } from '../../redux/eventSlice';
+import { AddEvent, initEvent } from '../../redux/eventSlice';
 import { AddOrder, initOrder } from '../../redux/orderSlice';
 
 
@@ -12,7 +12,7 @@ function MenuDetailsStage() {
 
     const eventType = initEvent.type
     const items = useSelector((state) => state.itemSlice) || [];
-
+    console.log(initEvent);
 
     const [startState, setStartState] = React.useState({});
     const handleStartChange = (event) => {

@@ -5,6 +5,7 @@ import UsePost from './hooks/postHook';
 const http = ' http://localhost:3000' || process.env.API_URL;
 
 export let initEvent = {
+    userId: 0,
     diners: 100,
     date: 0,
     houer: 0,
@@ -17,7 +18,7 @@ const eventSlice = createSlice({
     initialState: initEvent,
     reducers: {
         AddEvent: (state, actions) => {
-            console.log(actions.payload,"i am event");
+            console.log(actions.payload, "i am event");
             const Post = UsePost();
             Post(`${http}/event`, actions.payload)
         },
@@ -26,7 +27,7 @@ const eventSlice = createSlice({
             Put(`${http}/event`, actions.payload);
         },
         SaveEvent: (state, action) => {
-                initEvent = {...action.payload}          
+            initEvent = { ...action.payload }
         }
     }
 });
