@@ -6,7 +6,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import { useDispatch } from 'react-redux';
-import { Save,initUser } from '../../redux/userSlice';
+import { Save, initUser, initUserId } from '../../redux/userSlice';
 import { useNavigate } from 'react-router-dom';
 
 function NameLoginDialog() {
@@ -21,6 +21,10 @@ function NameLoginDialog() {
     handleMovePage();
   }
   const handleMovePage = () => {
+    console.log("initUserId-----", initUserId);
+    if (initUser.googleId == null) {
+      alert("user not found")
+    }
     if (initUser == 'Chani Rozenbiom') {
       navigate('/manager');
     }
