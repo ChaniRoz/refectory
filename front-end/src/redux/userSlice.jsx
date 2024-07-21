@@ -6,17 +6,18 @@ import axios from 'axios';
 
 const http = ' http://localhost:3000' || process.env.API_URL;
 
-export let init = {
+export let initUser = {
     googleId: '',
     displayName: '',
     firstName: '',
     lastName: '',
     image: ''
 }
+export let initUserId = ''
 
 const userSlice = createSlice({
     name: "user",
-    initialState: init,
+    initialState: initUser,
     reducers: {
         Get: (state) => {
             const [get, data] = UseGet();
@@ -29,20 +30,22 @@ const userSlice = createSlice({
             Post(`${http}/user`, actions.payload)
         },
         Save: async (state, actions) => {
-            init = actions.payload;
+            initUser = actions.payload;
             try {
                 const response = await axios.get(`${http}/users/${actions.payload}`);
-                init = {
+                initUser = {
                     googleId: response.data.googleId,
                     displayName: response.data.displayName,
                     firstName: response.data.firstName,
                     lastName: response.data.lastName,
                     image: response.data.image
                 };
+                initUserId=response.data._id
             } catch (error) {
                 console.error(error)
             }
-            console.log(init);
+            console.log(initUser);
+            console.log(initUserId);
         }
     }
 });
