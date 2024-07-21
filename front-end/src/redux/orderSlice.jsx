@@ -1,20 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
 import UsePost from './hooks/postHook';
+import { initUserId } from "./userSlice";
 
 const http = ' http://localhost:3000' || process.env.API_URL;
 
+export let initOrder = {
+    isComplete: false,
+    userId: initUserId,
+    items: []
+}
+
 const orderSlice = createSlice({
     name: "order",
-    initialState: {},
+    initialState: initOrder,
     reducers: {
-        Add: (state, actions) => {
-            console.log(actions.payload);
+        AddOrder: (state, actions) => {
+            console.log(actions.payload.items);
             const Post = UsePost();
             Post(`${http}/order`, actions.payload)
         },
     }
 });
 
-export const { Add } = orderSlice.actions;
+export const { AddOrder } = orderSlice.actions;
 export const selectorder = state => state.orderSlice.order;
 export default orderSlice.reducer;

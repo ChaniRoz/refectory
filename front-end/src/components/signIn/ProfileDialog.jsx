@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
-// import {  init } from '../../redux/userSlice';
+// import {  initUser } from '../../redux/userSlice';
 
 export default function ProfileDialog() {
 
@@ -33,7 +33,7 @@ export default function ProfileDialog() {
                 }}
             >
                 <DialogTitle>Profile</DialogTitle>
-                {/* {init} */}
+                {/* {initUser} */}
                 <DialogActions>
                     <Button onClick={handleClose}>close</Button>
                 </DialogActions>

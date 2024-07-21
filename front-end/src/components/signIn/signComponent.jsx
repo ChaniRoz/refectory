@@ -6,7 +6,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import { useDispatch } from 'react-redux';
-import { Save,init } from '../../redux/userSlice';
+import { Save,initUser } from '../../redux/userSlice';
 import { useNavigate } from 'react-router-dom';
 
 function NameLoginDialog() {
@@ -21,7 +21,7 @@ function NameLoginDialog() {
     handleMovePage();
   }
   const handleMovePage = () => {
-    if (init == 'Chani Rozenbiom') {
+    if (initUser == 'Chani Rozenbiom') {
       navigate('/manager');
     }
     else {

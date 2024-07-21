@@ -3,12 +3,14 @@ import { FormControl, Checkbox, FormControlLabel, FormGroup, FormHelperText, Acc
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FormattedInputs from '../payment/card';
 import { useDispatch, useSelector } from 'react-redux';
-import { Add, init } from '../../redux/eventSlice';
+import {  AddEvent, initEvent } from '../../redux/eventSlice';
+import { AddOrder, initOrder } from '../../redux/orderSlice';
+
 
 function MenuDetailsStage() {
 
 
-    const eventType = init.type
+    const eventType = initEvent.type
     const items = useSelector((state) => state.itemSlice) || [];
 
 
@@ -99,8 +101,11 @@ function MenuDetailsStage() {
     const dispatch = useDispatch();
 
     const handleSaveAndNext = () => {
-        dispatch(Add(init));
+        //save event
+        dispatch(AddEvent(initEvent));
         //save menu
+        dispatch(AddOrder(initOrder));
+
         setShowPaymentStage(true);
     };
 
