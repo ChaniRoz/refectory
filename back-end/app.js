@@ -9,7 +9,6 @@ const userRouter = require('./src/loginWithGoogle/routers/user.router');
 require('./src/loginWithGoogle/middelware/Auth0');
 
 const orderRoutes = require('./src/order/orderRoutes');
-const userRoute = require('./src/user/userRoute');
 const eventRoute = require('./src/event/eventRoutes');
 const paymentRoute = require('./src/payment/paymentRoute');
 const itemRoute = require('./src/item/itemRoutes');
@@ -26,7 +25,6 @@ app.use('/users', userRouter);
 app.get('/auth/google', passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }));
 
 app.use('/order', orderRoutes)
-app.use('/user', userRoute)
 app.use('/payment', paymentRoute)
 app.use('/event', eventRoute)
 app.use('/item', itemRoute)
@@ -41,7 +39,7 @@ mongoose.connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useUnified
 
 //login with google
 app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/' }), (req, res) => {
-    res.redirect('http://localhost:3001');
+    res.redirect('http://localhost:3001/signin');
 });
 
 app.get('/auth/logout', (req, res) => {

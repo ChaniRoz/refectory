@@ -62,7 +62,7 @@ exports.updateUser = async (req, res) => {
 };
 
 exports.getUserByName = async (req, res) => {
-  const displayName = req.params;
+  const displayName = req.params.displayName;
   console.log(displayName);
   try {
     const user = await userService.getUserByName(displayName);
