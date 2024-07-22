@@ -6,11 +6,12 @@ import AdminChat from './components/chat/managerChat'
 function App() {
   return (
     <>
-      {/* <PrimarySearchAppBar /> */}
+      <PrimarySearchAppBar />
+      {/* <StandardImageList/> */}
       <AdminChat/>
       <Form />
       <ChatBtn/>
- 
+      {/* </> */}
     </>
   );
 }
