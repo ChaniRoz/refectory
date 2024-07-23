@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import UsePut from './hooks/putHook';
 import UsePost from './hooks/postHook';
+import { initUserId } from "./userSlice";
 
 const http = ' http://localhost:3000' || process.env.API_URL;
 
 export let initEvent = {
-    userId: 0,
+    userId: initUserId,
     diners: 100,
     date: 0,
     houer: 0,

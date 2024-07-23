@@ -24,8 +24,7 @@ const eventSchema = new mongoose.Schema({
     },
     PaymentId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'payment',
-        required: true
+        ref: 'payment'
     }
 })
 

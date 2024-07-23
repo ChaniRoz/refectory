@@ -7,6 +7,8 @@ const session = require('express-session');
 const passport = require('passport');
 const userRouter = require('./src/loginWithGoogle/routers/user.router');
 require('./src/loginWithGoogle/middelware/Auth0');
+const morgan = require('morgan');
+
 
 const orderRoutes = require('./src/order/orderRoutes');
 const eventRoute = require('./src/event/eventRoutes');
@@ -16,6 +18,7 @@ const cors = require('cors');
 
 const app = express()
 app.use(cors())
+app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(session({ secret: 'SECRET', resave: true, saveUninitialized: true }));
