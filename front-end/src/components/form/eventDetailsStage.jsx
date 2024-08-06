@@ -7,9 +7,9 @@ import FormLabel from '@mui/material/FormLabel';
 import TextField from '@mui/material/TextField';
 import { Box, Button } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import { Save } from '../../redux/eventSlice';
+import { SaveEvent, initEvent } from '../../redux/eventSlice';
 import MenuDetailsStage from './menuDetailsStage';
-import { init } from '../../redux/eventSlice';
+import { initUserId } from '../../redux/userSlice';
 
 const BpIcon = styled('span')(({ theme }) => ({
   borderRadius: '50%',
@@ -67,24 +67,27 @@ function BpRadio(props) {
 
 
 function EventDetailsStage() {
-  const eventData = init;
+  const eventData = initEvent;
   const [diners, setDiners] = React.useState(eventData.diners);
   const [date, setDate] = React.useState(eventData.date);
   const [hour, setHour] = React.useState(eventData.hour);
   const [design, setDesign] = React.useState(eventData.design)
   const [type, setType] = React.useState(eventData.type)
+  const userId = initUserId
   const [showMenuDetailsStage, setShowMenuDetailsStage] = React.useState(false);
   const dispatch = useDispatch();
 
   const handleSaveAndNext = (e) => {
     const event = {
+      userId,
       diners,
       date,
       hour,
       design,
       type
     }
-    dispatch(Save(event));
+    console.log(event);
+    dispatch(SaveEvent(event));
     setShowMenuDetailsStage(true);
   };
 

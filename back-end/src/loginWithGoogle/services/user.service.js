@@ -97,7 +97,7 @@ exports.updateUser = async (email, updateData) => {
 
 exports.getUserByName = async (displayName) => {
   try {
-    const user = await User.findOne({ displayName });
+    const user = await User.findOne( {displayName} );
     if (!user) {
       throw new Error("User not found");
     }

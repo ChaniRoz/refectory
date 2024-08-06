@@ -8,6 +8,7 @@ import InputLabel from '@mui/material/InputLabel';
 import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
 import { Button, FormLabel } from '@mui/material';
+import moment from 'moment';
 
 const TextMaskCustom = React.forwardRef(function TextMaskCustom(
   { onChange, name, ...other },
@@ -61,18 +62,25 @@ NumericFormatCustom.propTypes = {
 
 export default function FormattedInputs() {
   const [showFinished, setShowFinished] = React.useState(false);
-  const [values, setValues] = useState({
-    numCard: '',
-    dateCard: '',
-    cvc: '',
-  });
+  // const [values, setValues] = useState({
+  //   numCard: '',
+  //   dateCard: '',
+  //   cvc: '',
+  // });
+ const [numCard,setNumCard]=React.useState(0);
+ const [dateCard,setDateCard]=React.useState(0);
+ const [cvc,setCvc]=React.useState(0);
 
-  const handleChange = (event) => {
-    setValues({
-      ...values,
-      [event.target.name]: event.target.value,
-    });
-  };
+  const formatDate = (date) => {
+    return moment(date).format('MM/YYYY');
+  }
+
+  // const handleChange = (event) => {
+  //   setValues({
+  //     ...values,
+  //     [event.target.name]: event.target.value,
+  //   });
+  // };
 
   const handleSaveAndNext = () => {
 
@@ -87,8 +95,7 @@ export default function FormattedInputs() {
           <FormControl variant="standard">
             <InputLabel htmlFor="formatted-text-mask-input">הכנס מספר כרטיס אשראי</InputLabel>
             <Input
-              // value={values.textmask}
-              onChange={handleChange}
+              onChange={(e) => setNumCard(e.target.value)}
               name="textmask"
               id="formatted-text-mask-input"
               inputComponent={TextMaskCustom}
@@ -113,8 +120,8 @@ export default function FormattedInputs() {
       <br /> */}
           <TextField
             label="הכנס מספר CVC"
-            value={values.numberformat}
-            onChange={handleChange}
+            // value={values.numberformat}
+            onChange={(e) => setCvc(e.target.value)}
             name="dateformat"
             id="standard-size-normal"
             InputProps={{
@@ -123,21 +130,20 @@ export default function FormattedInputs() {
             type='number'
             variant="standard"
           />
-          {/* <TextField
-        id="outlined-uncontrolled"
-        label="Uncontrolled"
-        defaultValue="foo"
-        type='date'
-
-      /> */}
           <TextField
+            label="תוקף כרטיס (חודש/שנה)"
+            type="month"
+            // value={values.cardExpiration} // שדה ב-state שלך לאחסון התאריך
+            onChange={(e) => setDateCard(e.target.value)}
+          />
+          {/* <TextField
             label="Size"
             id="standard-size-normal"
             defaultValue="Normal"
             variant="standard"
             type='date'
 
-          />
+          /> */}
           <Button variant="contained" color="primary" onClick={handleSaveAndNext}>לסיום ואישור הזמנה</Button>
         </Stack>
       )}
