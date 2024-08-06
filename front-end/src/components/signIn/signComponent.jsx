@@ -22,9 +22,9 @@ function NameLoginDialog() {
   }
   const handleMovePage = () => {
     console.log("initUserId-----", initUserId);
-    if (initUser.googleId == null) {
-      alert("user not found")
-    }
+    // if (initUser.googleId == null) {
+    //   alert("user not found")
+    // }
     if (initUser == 'Chani Rozenbiom') {
       navigate('/manager');
     }

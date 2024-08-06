@@ -18,7 +18,7 @@ const orderSlice = createSlice({
             console.log(actions.payload);
             initOrder={...actions.payload};
             const Post = UsePost();
-            Post(`${http}/order`,initOrder)
+            Post(`${http}/order`,actions.payload)
         },
     }
 });
