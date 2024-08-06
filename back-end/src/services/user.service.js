@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs');
-const User = require("../models/user.schema");
+const User = require("../schemas/user.schema");
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();

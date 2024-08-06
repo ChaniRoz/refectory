@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const ItemType = require('../enum/itemType');
-const EventType = require('../enum/eventType');
+const ItemType = require('../enum/itemType.enum');
+const EventType = require('../enum/eventType.enum');
 
 const itemSchema = new mongoose.Schema({
     itemType: {

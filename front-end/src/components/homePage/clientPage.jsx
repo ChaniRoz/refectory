@@ -9,8 +9,6 @@ function ClientPage() {
       <PrimarySearchAppBar />
       <Form />
       <ChatBtn />
-      {/* רק בינתיים */}
-      <AdminChat />
     </>
   );
 }

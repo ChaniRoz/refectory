@@ -1,13 +1,13 @@
-const payment = require('./paymentSchema');
-const { validate } = require('./paymentValid');
+const payment = require('../schemas/payment.schema');
+const { validate } = require('../validation/payment.valid');
 exports.addPayment = async (req, res) => {
 
   let validatePayment = validate(req.body);
-  console.log(validatePayment, "validatePayment");
+  // console.log(validatePayment, "validatePayment");
 
-  if (validatePayment.error) {
-    return res.status(400).json({ message: 'valid' });
-  }
+  // if (validatePayment.error) {
+  //   return res.status(400).json({ message: 'valid' });
+  // }
   const request = await payment.create(req.body);
   res.json(req.body)
   console.log(request);

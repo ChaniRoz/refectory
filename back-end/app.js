@@ -5,16 +5,15 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const passport = require('passport');
-const userRouter = require('./src/loginWithGoogle/routers/user.router');
-require('./src/loginWithGoogle/middelware/Auth0');
-const morgan = require('morgan');
-
-
-const orderRoutes = require('./src/order/orderRoutes');
-const eventRoute = require('./src/event/eventRoutes');
-const paymentRoute = require('./src/payment/paymentRoute');
-const itemRoute = require('./src/item/itemRoutes');
 const cors = require('cors');
+const morgan=require('morgan')
+
+require('./src/Auth0');
+const userRouter = require('./src/routes/user.route');
+const eventRoute = require('./src/routes/event.route');
+const paymentRoute = require('./src/routes/payment.route');
+const itemRoute = require('./src/routes/item.route');
+
 
 const app = express()
 app.use(cors())
@@ -24,15 +23,15 @@ app.use(cookieParser());
 app.use(session({ secret: 'SECRET', resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
+
 app.use('/users', userRouter);
 app.get('/auth/google', passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }));
 
-app.use('/order', orderRoutes)
 app.use('/payment', paymentRoute)
 app.use('/event', eventRoute)
 app.use('/item', itemRoute)
 
-// addItemsToDB() //const {addItemsToDB} = require('./src/item/itemsForDB');
+// addItemsToDB() //const {addItemsToDB} = require('./src/itemsForDB');
 
 const PORT = process.env.PORT || 5000;
 //mongo

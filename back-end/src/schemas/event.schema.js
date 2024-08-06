@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
-const EventType = require('../enum/eventType')
-const EventDesign = require('../enum/eventDesign');
+const EventType = require('../enum/eventType.enum')
+const EventDesign = require('../enum/eventDesign.enum');
 
 
 const eventSchema = new mongoose.Schema({
@@ -9,6 +9,7 @@ const eventSchema = new mongoose.Schema({
         ref: 'User',
         required: true
     },
+    isComplete: Boolean,
     type: {
         type: String,
         enum: EventType,
@@ -22,9 +23,14 @@ const eventSchema = new mongoose.Schema({
         enum: EventDesign,
         default: 'Black'
     },
+    items: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'item'
+    }],
     PaymentId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'payment'
+        ref: 'payment',
+        required: true
     }
 })
 

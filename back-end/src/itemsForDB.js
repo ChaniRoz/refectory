@@ -1,4 +1,4 @@
-const { addItem } = require("./itemController");
+const { addItem } = require("./controllers/item.controller");
 exports.addItemsToDB = () => {
 
     const newItemsList = [

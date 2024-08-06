@@ -15,6 +15,7 @@ function MenuDetailsStage() {
     console.log(initEvent);
 
     const [startState, setStartState] = React.useState({});
+    const [choosenState, setChoosenState] = React.useState([]);
 
     const handleStartChange = (event) => {
         setStartState({
@@ -25,10 +26,11 @@ function MenuDetailsStage() {
         const itemId = startItems.find(item => item.name === event.target.name)._id;
 
         if (event.target.checked)
-            setChoosenState({
-                ...choosenState,
-                [event.target.name]: itemId,
-            });
+            setChoosenState(prevState => [
+                ...prevState,
+                itemId,
+            ]);
+
         else if (!event.target.checked) {
             const updatedChoosenState = { ...choosenState };
             delete updatedChoosenState[event.target.id];
@@ -55,10 +57,11 @@ function MenuDetailsStage() {
         const itemId = saladsItems.find(item => item.name === event.target.name)._id;
 
         if (event.target.checked)
-            setChoosenState({
-                ...choosenState,
-                [event.target.name]: itemId,
-            });
+            setChoosenState(prevState => [
+                ...prevState,
+                itemId,
+            ]);
+
         else if (!event.target.checked) {
             const updatedChoosenState = { ...choosenState };
             delete updatedChoosenState[event.target.id];
@@ -83,10 +86,11 @@ function MenuDetailsStage() {
         const itemId = mainCourseItems.find(item => item.name === event.target.name)._id;
 
         if (event.target.checked)
-            setChoosenState({
-                ...choosenState,
-                [event.target.name]: itemId,
-            });
+            setChoosenState(prevState => [
+                ...prevState,
+                itemId,
+            ]);
+
         else if (!event.target.checked) {
             const updatedChoosenState = { ...choosenState };
             delete updatedChoosenState[event.target.id];
@@ -113,10 +117,11 @@ function MenuDetailsStage() {
         const itemId = extrasItems.find(item => item.name === event.target.name)._id;
 
         if (event.target.checked)
-            setChoosenState({
-                ...choosenState,
-                [event.target.name]: itemId,
-            });
+            setChoosenState(prevState => [
+                ...prevState,
+                itemId,
+            ]);
+
         else if (!event.target.checked) {
             const updatedChoosenState = { ...choosenState };
             delete updatedChoosenState[event.target.id];
@@ -143,10 +148,11 @@ function MenuDetailsStage() {
         const itemId = dessertItems.find(item => item.name === event.target.name)._id;
 
         if (event.target.checked)
-            setChoosenState({
-                ...choosenState,
-                [event.target.name]: itemId,
-            });
+            setChoosenState(prevState => [
+                ...prevState,
+                itemId,
+            ]);
+
         else if (!event.target.checked) {
             const updatedChoosenState = { ...choosenState };
             delete updatedChoosenState[event.target.id];
@@ -169,14 +175,15 @@ function MenuDetailsStage() {
     const [isComplete, setIsComplete] = React.useState(orderData.isComplete);
     const [userId, setUserId] = React.useState(orderData.userId);
     const [orderItems, setOrderItems] = React.useState(orderData.items);
-    const order = {
-        isComplete,
-        userId,
-        orderItems,
-    }
     const handleSaveAndNext = () => {
         //save event
         dispatch(AddEvent(initEvent));
+        const order = {
+            isComplete,
+            userId,
+            orderItems,
+        }
+        console.log(order);
         //save menu
         setOrderItems(choosenState);
         dispatch(AddOrder(order));

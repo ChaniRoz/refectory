@@ -1,6 +1,6 @@
 const Joi = require('joi');
-const ItemType = require('../enum/itemType');
-const EventType = require('../enum/eventType');
+const ItemType = require('../enum/itemType.enum');
+const EventType = require('../enum/eventType.enum');
 
 let itemSchema = Joi.object({
     type: Joi.object({
