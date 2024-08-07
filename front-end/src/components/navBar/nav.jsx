@@ -8,8 +8,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import FormDialog from "../signIn/loginComponent";
 import Dialog from '@mui/material/Dialog';
+import FormDialog from "../signIn/loginComponent";
 import SimpleDialog from "../signIn/signComponent";
 import ProfileDialog from '../signIn/ProfileDialog';
 
@@ -44,14 +44,14 @@ export default function PrimarySearchAppBar() {
     setProfile(true);
   };
   const handleLogin = () => {
-    setOpen(true);
+    setOpen(false);
   };
   const handleSignIn = () => {
-    setAccount(true);
+    setAccount(false);
   };
 
   const handleProfile = () => {
-    setProfile(true);
+    setProfile(false);
   };
 
   const menuId = 'primary-search-account-menu';
@@ -71,7 +71,7 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleProfile}>Profile</MenuItem>
+      <MenuItem onClick={() => setProfile(true)}>Profile</MenuItem>
       <MenuItem onClick={() => setOpen(true)}>Login</MenuItem>
       {/* <MenuItem onClick={() => setOpen(true)}>Sign in</MenuItem> */}
       <MenuItem onClick={() => setAccount(true)}>My account</MenuItem>

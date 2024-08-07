@@ -7,11 +7,13 @@ const http = ' http://localhost:3000' || process.env.API_URL;
 
 export let initEvent = {
     userId: initUserId,
-    diners: 100,
+    type: "Pareve",
     date: 0,
+    diners: 100,
     houer: 0,
     design: "Black",
-    type: "Pareve"
+    isComplete:false,
+    items:[]
 }
 
 const eventSlice = createSlice({
