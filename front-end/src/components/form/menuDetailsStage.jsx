@@ -3,8 +3,8 @@ import { FormControl, Checkbox, FormControlLabel, FormGroup, FormHelperText, Acc
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FormattedInputs from '../payment/card';
 import { useDispatch, useSelector } from 'react-redux';
-import { AddEvent, initEvent } from '../../redux/eventSlice';
-import { AddOrder, initOrder } from '../../redux/orderSlice';
+import { AddEvent, SaveEvent, initEvent } from '../../redux/eventSlice';
+import { initUserId } from '../../redux/userSlice';
 
 
 function MenuDetailsStage() {
@@ -171,22 +171,35 @@ function MenuDetailsStage() {
     const [showPaymentStage, setShowPaymentStage] = React.useState(false);
     const [showPrev, setShowPrev] = React.useState(false);
     const dispatch = useDispatch();
-    const orderData = initOrder;
-    const [isComplete, setIsComplete] = React.useState(orderData.isComplete);
-    const [userId, setUserId] = React.useState(orderData.userId);
-    const [orderItems, setOrderItems] = React.useState(orderData.items);
+    const eventData = initEvent;
+    console.log("eventData---------- ", eventData);
+    const [diners, setDiners] = React.useState(eventData.diners);
+    const [date, setDate] = React.useState(eventData.date);
+    const [hour, setHour] = React.useState(eventData.hour);
+    const [design, setDesign] = React.useState(eventData.design)
+    const [type, setType] = React.useState(eventData.type)
+    const [isComplete, setIsComplete] = React.useState(eventData.isComplete);
+    const [orderItems, setOrderItems] = React.useState(eventData.items);
+    const userId = initUserId;
+
     const handleSaveAndNext = () => {
         //save event
-        dispatch(AddEvent(initEvent));
+        // setOrderItems(choosenState);
+        console.log("orderItems======",choosenState);
         const order = {
-            isComplete,
             userId,
-            orderItems,
+            diners,
+            date,
+            hour,
+            design,
+            type,
+            isComplete:false,
+            orderItems:{...choosenState}
         }
-        console.log(order);
+        // dispatch(SaveEvent(order));
+        
         //save menu
-        setOrderItems(choosenState);
-        dispatch(AddOrder(order));
+        dispatch(AddEvent(order));
         setShowPaymentStage(true);
     };
 

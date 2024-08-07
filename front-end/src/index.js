@@ -9,14 +9,12 @@ import { configureStore } from '@reduxjs/toolkit';
 import userSlice from './redux/userSlice';
 import eventSlice from './redux/eventSlice';
 import itemSlice from './redux/itemSlice';
-import orderSlice from './redux/orderSlice';
 
 const store = configureStore({
   reducer: {
     userSlice,
     eventSlice,
     itemSlice,
-    orderSlice
   }
 })
 

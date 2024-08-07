@@ -16,7 +16,7 @@ const eventSchema = new mongoose.Schema({
         default: 'Pareve'
     },
     date: Date,
-    houer: String,
+    houer: Number,
     diners: Number,
     design: {
         type: String,
@@ -30,7 +30,7 @@ const eventSchema = new mongoose.Schema({
     PaymentId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'payment',
-        required: true
+        // required: true
     }
 })
 
