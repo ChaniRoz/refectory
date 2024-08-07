@@ -9,6 +9,7 @@ import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
 import { Button, FormLabel } from '@mui/material';
 import moment from 'moment';
+import MenuDetailsStage from '../form/menuDetailsStage';
 
 const TextMaskCustom = React.forwardRef(function TextMaskCustom(
   { onChange, name, ...other },
@@ -62,18 +63,22 @@ NumericFormatCustom.propTypes = {
 
 export default function FormattedInputs() {
   const [showFinished, setShowFinished] = React.useState(false);
+  const [showPrev, setShowPrev] = React.useState(false);
   // const [values, setValues] = useState({
   //   numCard: '',
   //   dateCard: '',
   //   cvc: '',
   // });
- const [numCard,setNumCard]=React.useState(0);
- const [dateCard,setDateCard]=React.useState(0);
- const [cvc,setCvc]=React.useState(0);
+  const [numCard, setNumCard] = React.useState(0);
+  const [dateCard, setDateCard] = React.useState(0);
+  const [cvc, setCvc] = React.useState(0);
 
   const formatDate = (date) => {
     return moment(date).format('MM/YYYY');
   }
+  const handlePrev = () => {
+    setShowPrev(true);
+  };
 
   // const handleChange = (event) => {
   //   setValues({
@@ -89,7 +94,7 @@ export default function FormattedInputs() {
 
   return (
     <div>
-      {!showFinished && (
+      {!showFinished && !showPrev && (
         <Stack direction="row" spacing={2}>
           <FormLabel id="type">Payment</FormLabel>
           <FormControl variant="standard">
@@ -145,6 +150,9 @@ export default function FormattedInputs() {
 
           /> */}
           <Button variant="contained" color="primary" onClick={handleSaveAndNext}>לסיום ואישור הזמנה</Button>
+          <Button variant="contained" onClick={handlePrev} sx={{ mt: 2 }}>
+            Previous
+          </Button>
         </Stack>
       )}
       {showFinished && (
@@ -152,6 +160,7 @@ export default function FormattedInputs() {
           <h2>הזמנתך בוצעה בהצלחה!</h2>
         </div>
       )}
+      {showPrev && <MenuDetailsStage />}
     </div>
   );
 }

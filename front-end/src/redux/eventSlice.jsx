@@ -8,12 +8,12 @@ const http = ' http://localhost:3000' || process.env.API_URL;
 export let initEvent = {
     userId: initUserId,
     type: "Pareve",
-    date: 0,
+    date: "00:00",
     diners: 100,
-    houer: 0,
+    hour: 0,
     design: "Black",
-    isComplete:false,
-    items:[]
+    isComplete: false,
+    items: []
 }
 
 const eventSlice = createSlice({
@@ -23,14 +23,21 @@ const eventSlice = createSlice({
         AddEvent: (state, actions) => {
             console.log(actions.payload, "i am event");
             const Post = UsePost();
-            Post(`${http}/event`, actions.payload)
+            const data = {
+                ...initEvent,
+                ...actions.payload
+            }
+            Post(`${http}/event`, data)
         },
         Edit: (state, actions) => {
             const Put = UsePut();
             Put(`${http}/event`, actions.payload);
         },
-        SaveEvent: (state, action) => {
-            initEvent = { ...action.payload }
+        SaveEvent: (state, actions) => {
+            initEvent = {
+                ...initEvent,
+                ...actions.payload
+            }
         }
     }
 });

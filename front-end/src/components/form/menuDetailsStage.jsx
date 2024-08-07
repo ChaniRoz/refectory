@@ -4,7 +4,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FormattedInputs from '../payment/card';
 import { useDispatch, useSelector } from 'react-redux';
 import { AddEvent, SaveEvent, initEvent } from '../../redux/eventSlice';
-import { initUserId } from '../../redux/userSlice';
+import EventDetailsStage from './eventDetailsStage';
 
 
 function MenuDetailsStage() {
@@ -173,32 +173,15 @@ function MenuDetailsStage() {
     const dispatch = useDispatch();
     const eventData = initEvent;
     console.log("eventData---------- ", eventData);
-    const [diners, setDiners] = React.useState(eventData.diners);
-    const [date, setDate] = React.useState(eventData.date);
-    const [hour, setHour] = React.useState(eventData.hour);
-    const [design, setDesign] = React.useState(eventData.design)
-    const [type, setType] = React.useState(eventData.type)
     const [isComplete, setIsComplete] = React.useState(eventData.isComplete);
     const [orderItems, setOrderItems] = React.useState(eventData.items);
-    const userId = initUserId;
 
     const handleSaveAndNext = () => {
-        //save event
-        // setOrderItems(choosenState);
-        console.log("orderItems======",choosenState);
         const order = {
-            userId,
-            diners,
-            date,
-            hour,
-            design,
-            type,
-            isComplete:false,
-            orderItems:{...choosenState}
+            isComplete: false,
+            orderItems: { ...choosenState }
         }
         // dispatch(SaveEvent(order));
-        
-        //save menu
         dispatch(AddEvent(order));
         setShowPaymentStage(true);
     };
@@ -354,6 +337,7 @@ function MenuDetailsStage() {
                     </Button>
                 </FormControl>
             )}
+            {showPrev && <EventDetailsStage />}
             {showPaymentStage && <FormattedInputs />}
         </div>
     );

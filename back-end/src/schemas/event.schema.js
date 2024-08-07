@@ -16,7 +16,7 @@ const eventSchema = new mongoose.Schema({
         default: 'Pareve'
     },
     date: Date,
-    houer: Number,
+    hour: String,
     diners: Number,
     design: {
         type: String,
