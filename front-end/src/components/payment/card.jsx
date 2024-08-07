@@ -8,7 +8,7 @@ import InputLabel from '@mui/material/InputLabel';
 import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
 import { Button, FormLabel } from '@mui/material';
-import moment from 'moment';
+// import moment from 'moment';
 
 const TextMaskCustom = React.forwardRef(function TextMaskCustom(
   { onChange, name, ...other },
@@ -72,7 +72,8 @@ export default function FormattedInputs() {
  const [cvc,setCvc]=React.useState(0);
 
   const formatDate = (date) => {
-    return moment(date).format('MM/YYYY');
+    return 'aaa';
+    // return moment(date).format('MM/YYYY');
   }
 
   // const handleChange = (event) => {

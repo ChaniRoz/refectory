@@ -112,7 +112,7 @@ function EventDetailsStage() {
             <FormControlLabel value="Pareve" control={<BpRadio />} label="Pareve" />
           </RadioGroup>
           <TextField
-            required
+            // required
             id="number"
             label="number of diners"
             type="number"
@@ -124,7 +124,7 @@ function EventDetailsStage() {
             onChange={(e) => setDiners(e.target.value)}
           />
           <TextField
-            required
+            // required
             id="date"
             label="Date"
             type="date"
@@ -136,7 +136,7 @@ function EventDetailsStage() {
             onChange={(e) => setDate(e.target.value)}
           />
           <TextField
-            required
+            // required
             id="hour"
             label="Houer"
             type="time"

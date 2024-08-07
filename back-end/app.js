@@ -7,12 +7,16 @@ const session = require('express-session');
 const passport = require('passport');
 const userRouter = require('./src/loginWithGoogle/routers/user.router');
 require('./src/loginWithGoogle/middelware/Auth0');
-
+// const {sendEmailToManager} = require('./src/sendEmail/email')
+// import { sendEmailToManager } from './src/sendEmail/email.mjs';
+// sendEmailToManager() 
 const orderRoutes = require('./src/order/orderRoutes');
 const eventRoute = require('./src/event/eventRoutes');
 const paymentRoute = require('./src/payment/paymentRoute');
 const itemRoute = require('./src/item/itemRoutes');
 const cors = require('cors');
+const nodemailer = require('nodemailer');
+
 
 const app = express()
 app.use(cors())
@@ -86,13 +90,13 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../front-end/src', 'index.html'));
 });
 
-const clients = {}; 
+const clients = {};
 
 io.on('connection', (socket) => {
-    const clientId = socket.handshake.query.clientId; 
+    const clientId = socket.handshake.query.clientId;
 
     clients[clientId] = socket;
-    io.emit('clients', Object.keys(clients)); 
+    io.emit('clients', Object.keys(clients));
 
     socket.join(clientId);
 
@@ -111,10 +115,12 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         console.log(`${clientId} disconnected`);
         delete clients[clientId];
-        io.emit('clients', Object.keys(clients)); 
+        io.emit('clients', Object.keys(clients));
     });
 });
 
 server.listen(5000, () => {
     console.log('Server is running on port 5000');
 });
+
+

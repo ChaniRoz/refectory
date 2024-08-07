@@ -5,17 +5,18 @@ import FormattedInputs from '../payment/card';
 import { useDispatch, useSelector } from 'react-redux';
 import { AddEvent, initEvent } from '../../redux/eventSlice';
 import { AddOrder, initOrder } from '../../redux/orderSlice';
+import { initUserId } from "../../redux/userSlice";
 
 
 function MenuDetailsStage() {
 
-
+    
     const eventType = initEvent.type
     const items = useSelector((state) => state.itemSlice) || [];
     console.log(initEvent);
 
     const [startState, setStartState] = React.useState({});
-
+    const [choosenState,setChoosenState]= React.useState({});
     const handleStartChange = (event) => {
         setStartState({
             ...startState,
@@ -167,7 +168,8 @@ function MenuDetailsStage() {
     const dispatch = useDispatch();
     const orderData = initOrder;
     const [isComplete, setIsComplete] = React.useState(orderData.isComplete);
-    const [userId, setUserId] = React.useState(orderData.userId);
+    // const [userId, setUserId] = React.useState(orderData.userId);
+    const userId=initUserId;
     const [orderItems, setOrderItems] = React.useState(orderData.items);
     const order = {
         isComplete,
@@ -340,3 +342,4 @@ function MenuDetailsStage() {
 }
 
 export default MenuDetailsStage;
+

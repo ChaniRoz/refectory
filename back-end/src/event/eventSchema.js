@@ -7,7 +7,7 @@ const eventSchema = new mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        required: true
+        required: false
     },
     type: {
         type: String,
@@ -25,7 +25,7 @@ const eventSchema = new mongoose.Schema({
     PaymentId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'payment',
-        required: true
+        required: false
     }
 })
 

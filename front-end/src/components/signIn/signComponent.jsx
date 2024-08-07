@@ -38,7 +38,7 @@ function NameLoginDialog() {
         <DialogContentText>enter your Name</DialogContentText>
         <TextField
           autoFocus
-          required
+          // required
           margin="dense"
           id="name"
           name="name"
