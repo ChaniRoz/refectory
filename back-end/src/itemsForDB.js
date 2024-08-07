@@ -1,9 +1,9 @@
 const { addItem } = require("./controllers/item.controller");
+
 exports.addItemsToDB = () => {
 
     const newItemsList = [
         {
-
             itemType: "Start Dish",
             eventType: "Pareve",
             name: "kugel potato",
