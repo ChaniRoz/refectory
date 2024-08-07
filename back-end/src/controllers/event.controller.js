@@ -1,3 +1,4 @@
+const sendEmailToManager = require('../email/sendEmail');
 const event = require('../schemas/event.schema');
 
 exports.getAllEvents = async (req, res) => {
@@ -25,9 +26,13 @@ exports.getEventByUserId = async (req, res) => {
   }
 };
 
+
 exports.addEvent = async (req, res) => {
+  const { userName, date, diners, PaymentId, type, design ,houer} = req.body;
+  console.log({ userName, date, diners, PaymentId, type, design ,houer});
   console.log(req.body);
   const request = await event.create(req.body);
+  sendEmailToManager(userName, date, diners, type, design )
   res.json(request)
 }
 
