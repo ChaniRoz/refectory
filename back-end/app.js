@@ -6,18 +6,21 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const passport = require('passport');
 const cors = require('cors');
-const morgan=require('morgan')
+// const morgan=require('morgan')
 
 require('./src/Auth0');
 const userRouter = require('./src/routes/user.route');
 const eventRoute = require('./src/routes/event.route');
 const paymentRoute = require('./src/routes/payment.route');
 const itemRoute = require('./src/routes/item.route');
+//chat
+const initializeSocketServer = require('./src/chat/server');
 
+initializeSocketServer();
 
 const app = express()
 app.use(cors())
-app.use(morgan('dev'));
+// app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(session({ secret: 'SECRET', resave: true, saveUninitialized: true }));
@@ -31,7 +34,8 @@ app.use('/payment', paymentRoute)
 app.use('/event', eventRoute)
 app.use('/item', itemRoute)
 
-// addItemsToDB() //const {addItemsToDB} = require('./src/itemsForDB');
+// const {addItemsToDB} = require('./src/itemsForDB');
+// addItemsToDB() 
 
 const PORT = process.env.PORT || 5000;
 //mongo
@@ -68,55 +72,4 @@ app.get('/profile', (req, res) => {
 });
 app.get('/', (req, res) => {
     res.send('Home Page');
-});
-
-const http = require('http');
-const { Server } = require('socket.io');
-const path = require('path');
-const server = http.createServer(app);
-const io = new Server(server, {
-    cors: {
-        origin: '*',
-        credentials: true,
-    },
-});
-
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'client/build')));
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../front-end/src', 'index.html'));
-});
-
-const clients = {}; 
-
-io.on('connection', (socket) => {
-    const clientId = socket.handshake.query.clientId; 
-
-    clients[clientId] = socket;
-    io.emit('clients', Object.keys(clients)); 
-
-    socket.join(clientId);
-
-    socket.on('message', (message) => {
-        console.log(`Message from ${clientId}: ${message.text}`);
-        io.to('admin').emit('message', { clientId, text: message.text });
-        io.to(clientId).emit('message', { clientId, text: message.text });
-
-    });
-
-    socket.on('message-admin', (message) => {
-        console.log(`Admin message to ${message.clientId}: ${message.text}`);
-        io.to(message.clientId).emit('message', { clientId: 'admin', text: message.text });
-    });
-
-    socket.on('disconnect', () => {
-        console.log(`${clientId} disconnected`);
-        delete clients[clientId];
-        io.emit('clients', Object.keys(clients)); 
-    });
-});
-
-server.listen(5000, () => {
-    console.log('Server is running on port 5000');
 });
