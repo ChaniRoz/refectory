@@ -1,17 +1,20 @@
-import Form from './components/form/form';
-import PrimarySearchAppBar from './components/navBar/nav'
-import ChatBtn from './components/chat/chatBtn'
-import AdminChat from './components/chat/managerChat'
+import StartPage from './components/homePage/startPage';
+import ManagerPage from './components/homePage/managerPage';
+import ClientPage from './components/homePage/clientPage';
+import {  Routes, Route } from 'react-router-dom';
+import NameLoginDialog from './components/signIn/signComponent';
+
 
 function App() {
   return (
     <>
-      <PrimarySearchAppBar />
-      {/* <StandardImageList/> */}
-      <AdminChat/>
-      <Form />
-      <ChatBtn/>
-      {/* </> */}
+
+    <Routes>
+      <Route path="/" element={<StartPage />} />
+      <Route path="/signin" element={<NameLoginDialog />} />
+      <Route path="/manager" element={<ManagerPage />} />
+      <Route path="/client" element={<ClientPage />} />
+    </Routes>
     </>
   );
 }
