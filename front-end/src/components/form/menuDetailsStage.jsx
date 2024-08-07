@@ -174,12 +174,12 @@ function MenuDetailsStage() {
     const eventData = initEvent;
     console.log("eventData---------- ", eventData);
     const [isComplete, setIsComplete] = React.useState(eventData.isComplete);
-    const [orderItems, setOrderItems] = React.useState(eventData.items);
+    const [Items, setItems] = React.useState(eventData.items);
 
     const handleSaveAndNext = () => {
         const order = {
             isComplete: false,
-            orderItems: { ...choosenState }
+            Items: choosenState
         }
         // dispatch(SaveEvent(order));
         dispatch(AddEvent(order));
