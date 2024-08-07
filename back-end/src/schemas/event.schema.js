@@ -23,7 +23,7 @@ const eventSchema = new mongoose.Schema({
         enum: EventDesign,
         default: 'Black'
     },
-    items: [{
+    Items: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'item'
     }],
