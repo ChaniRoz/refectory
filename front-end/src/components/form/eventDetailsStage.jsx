@@ -73,8 +73,6 @@ function EventDetailsStage() {
   const [hour, setHour] = React.useState(eventData.hour);
   const [design, setDesign] = React.useState(eventData.design)
   const [type, setType] = React.useState(eventData.type)
-  const [isComplete, setIsComplete] = React.useState(eventData.isComplete);
-  const [orderItems, setOrderItems] = React.useState(eventData.items);
   const userId = initUserId
   const [showMenuDetailsStage, setShowMenuDetailsStage] = React.useState(false);
   const dispatch = useDispatch();
@@ -87,8 +85,6 @@ function EventDetailsStage() {
       hour,
       design,
       type,
-      isComplete:false,
-      orderItems
     }
     console.log("event ----", event);
     dispatch(SaveEvent(event));
