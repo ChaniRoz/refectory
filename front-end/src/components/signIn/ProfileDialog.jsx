@@ -27,7 +27,6 @@ export default function ProfileDialog() {
                         const formData = new FormData(event.currentTarget);
                         const formJson = Object.fromEntries(formData.entries());
                         const name = formJson.name;
-                        console.log(name);
                         handleClose();
                     },
                 }}

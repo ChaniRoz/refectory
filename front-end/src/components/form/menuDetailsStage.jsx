@@ -12,7 +12,7 @@ function MenuDetailsStage() {
 
     const eventType = initEvent.type
     const items = useSelector((state) => state.itemSlice) || [];
-    console.log(initEvent);
+    console.log('initEvent  =  ',initEvent);
 
     const [startState, setStartState] = React.useState({});
     const [choosenState, setChoosenState] = React.useState([]);
