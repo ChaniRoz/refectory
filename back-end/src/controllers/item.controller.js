@@ -1,9 +1,8 @@
-const item = require('../schemas/item.schema');
-const { validate } = require('../validation/item.valid');
+const itemService = require('../services/item.service');
 
-exports.getAllitems = async (req, res) => {
+exports.getAllItems = async (req, res) => {
   try {
-    const items = await item.find();
+    const items = await itemService.getAllItems();
     res.json(items);
   } catch (error) {
     console.error('Failed to get all items:', error);
@@ -12,14 +11,14 @@ exports.getAllitems = async (req, res) => {
 };
 
 exports.getItemById = async (req, res) => {
-  const { itemId } = req.params.itemId;
+  const { itemId } = req.params;
 
   try {
-    const Item = await item.findOne({ itemId });
-    if (!Item) {
-      return res.status(404).json({ message: 'item not found' });
+    const item = await itemService.getItemById(itemId);
+    if (!item) {
+      return res.status(404).json({ message: 'Item not found' });
     }
-    res.json(Item);
+    res.json(item);
   } catch (error) {
     console.error('Failed to get item:', error);
     res.status(500).json({ message: 'Failed to get item' });
@@ -27,52 +26,34 @@ exports.getItemById = async (req, res) => {
 };
 
 exports.getItemsByTypeAndEvent = async (req, res) => {
-  const { eventType,itemType } = req.params;  
+  const { eventType, itemType } = req.params;
 
   try {
-    const items = await item.find({ eventType: eventType, itemType: itemType });
+    const items = await itemService.getItemsByTypeAndEvent(eventType, itemType);
     res.json(items);
-  } 
-  catch (error) {
+  } catch (error) {
     console.error('Failed to get items by type and event:', error);
     res.status(500).json({ message: 'Failed to get items by type and event' });
   }
 };
 
 exports.addItem = async (req, res) => {
-  // let validateItem = validate(req.body);
-  // console.log(validateItem, "validateItem");
-
-  // if (validateItem.error) {
-  //   return res.status(400).json({ message: 'Invalid data' });
-  // }
-
   try {
-    const existingItem = await item.findOne({ name: req.body.name });
-
-    if (existingItem) {
-      return res.status(400).json({ message: 'Item with the same name already exists' });
-    }
-
-    const newItem = await item.create(req.body);
+    const newItem = await itemService.addItem(req.body);
     console.log("New item created:", newItem);
     res.json(newItem);
   } catch (error) {
     console.error('Failed to add item:', error);
-    // return res.status(500).json({ message: 'Failed to add item' });
+    res.status(500).json({ message: 'Failed to add item' });
   }
-}
-
+};
 
 exports.updateItem = async (req, res) => {
   const { itemId } = req.params;
-  const {itemType ,eventType,name,price } = req.body;
+  const { itemType, eventType, name, price } = req.body;
+
   try {
-    const updatedItem = await event.findOneAndUpdate(
-      { itemId: itemId },
-      {itemType ,eventType,name,price},
-      { new: true }
-    );
+    const updatedItem = await itemService.updateItem(itemId, { itemType, eventType, name, price });
     if (!updatedItem) {
       return res.status(404).json({ message: 'Item not found' });
     }
@@ -85,11 +66,9 @@ exports.updateItem = async (req, res) => {
 
 exports.deleteItem = async (req, res) => {
   const { itemId } = req.params;
+
   try {
-    const deletedItem = await event.findOneAndDelete({ _id: itemId });
-    if (!deletedItem) {
-      return res.status(404).json({ message: 'Item not found' });
-    }
+    await itemService.deleteItem(itemId);
     res.json({ message: 'Item deleted successfully' });
   } catch (error) {
     console.error('Failed to delete item:', error);
