@@ -2,8 +2,8 @@ const userService = require('../services/user.service');
 
 exports.signup = async (req, res) => {
   try {
-    const task = await userService.signup(req.body);
-    res.json(task);
+    const user = await userService.signup(req.body);
+    res.json(user);
   } catch (error) {
     console.error("Failed to signup:", error.message);
     res.status(500).json({ message: error.message || "Failed to signup" });
@@ -13,8 +13,8 @@ exports.signup = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     console.log(req.body);
-    const task = await userService.login(req.body);
-    res.json(task);
+    const user = await userService.login(req.body);
+    res.json(user);
   } catch (error) {
     console.error("Failed to login:", error.message);
     res.status(500).json({ message: error.message || "Failed to login" });
