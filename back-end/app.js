@@ -6,7 +6,7 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const passport = require('passport');
 const cors = require('cors');
-const morgan=require('morgan')
+// const morgan=require('morgan')
 
 require('./src/Auth0');
 const userRouter = require('./src/routes/user.route');
@@ -17,7 +17,7 @@ const itemRoute = require('./src/routes/item.route');
 
 const app = express()
 app.use(cors())
-app.use(morgan('dev'));
+// app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(session({ secret: 'SECRET', resave: true, saveUninitialized: true }));

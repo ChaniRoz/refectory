@@ -1,4 +1,5 @@
 const event = require('../schemas/event.schema');
+const sendEmailToManager = require('../email/sendEmail');
 
 exports.getAllEvents = async (req, res) => {
   try {
@@ -26,9 +27,16 @@ exports.getEventByUserId = async (req, res) => {
 };
 
 exports.addEvent = async (req, res) => {
-  console.log(req.body);
-  const request = await event.create(req.body);
-  res.json(request)
+  try {
+    const { userName, date, diners, PaymentId, type, design, houer } = req.body;
+    const request = await event.create(req.body);
+    sendEmailToManager(userName, date, diners, type, design);
+    res.json(request)
+  } catch (error) {
+    console.error('Failed to add event:', error);
+    res.status(500).json({ message: 'Failed to add event' });
+  }
+
 }
 
 exports.updateEvent = async (req, res) => {
