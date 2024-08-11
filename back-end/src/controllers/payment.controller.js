@@ -10,14 +10,11 @@ exports.addPayment = async (req, res) => {
   // }
   const request = await payment.create(req.body);
   res.json(req.body)
-  console.log(request);
 }
 exports.getPaymentById = async (req, res) => {
   const paymentId = req.params.paymentId;
-  console.log("paymentId", paymentId);
   try {
     const payment = await payment.find({ paymentId: paymentId })
-    console.log("payment",payment);
     if (!payment) {
       return res.status(404).json({ message: 'not found' })
     }
