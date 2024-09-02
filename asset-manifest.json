@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Refectory/static/css/main.e6c13ad2.css",
+    "main.js": "/Refectory/static/js/main.ca167940.js",
+    "static/js/453.9537af23.chunk.js": "/Refectory/static/js/453.9537af23.chunk.js",
+    "index.html": "/Refectory/index.html",
+    "main.e6c13ad2.css.map": "/Refectory/static/css/main.e6c13ad2.css.map",
+    "main.ca167940.js.map": "/Refectory/static/js/main.ca167940.js.map",
+    "453.9537af23.chunk.js.map": "/Refectory/static/js/453.9537af23.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.ca167940.js"
+  ]
+}
