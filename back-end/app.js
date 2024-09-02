@@ -13,10 +13,15 @@ const userRouter = require('./src/routes/user.route');
 const eventRoute = require('./src/routes/event.route');
 const paymentRoute = require('./src/routes/payment.route');
 const itemRoute = require('./src/routes/item.route');
+
 //chat
 const initializeSocketServer = require('./src/chat/server');
 
 initializeSocketServer();
+
+
+//docs
+
 
 const app = express()
 app.use(cors())
