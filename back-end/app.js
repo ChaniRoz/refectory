@@ -37,7 +37,7 @@ app.use('/item', itemRoute)
 // const {addItemsToDB} = require('./src/itemsForDB');
 // addItemsToDB() 
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 //mongo
 mongoose.connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true }).then(
     () => app.listen(PORT, () => console.log(`server runing on port ${PORT}`)))
